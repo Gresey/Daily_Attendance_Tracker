@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Add Student</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+ <!-- Google Fonts -->
+ <link href="https://fonts.gstatic.com" rel="preconnect">
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"rel="stylesheet">
+
+ 
+ <link href="/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <link href="/bootstrap/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+ <link href="/bootstrap/boxicons/css/boxicons.min.css" rel="stylesheet">
+ 
+
+  <!--  Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <%- include("templates/header.ejs") %>
+  <!--======= SideBar =======-->
+  <%- include("templates/sidebar.ejs") %>
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Add Student</h1>
+      
+    </div><!-- End Page Title -->
+    
+
+        <div class="col-lg-10">
+
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">Student Information</h3>
+
+              <!-- Add Student Form -->
+              <form id="AddStudentForm" action="http://localhost:3000/submitForm" method="POST">
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label" >Name</label>
+                  <div class="col-sm-10">
+                    <input type="text"id="Name" name="name" class="form-control" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">College Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" id="Email" name="email" class="form-control" required>
+                  </div>
+                </div>
+               
+                <div class="row mb-3">
+                  <label for="Enrollment" class="col-sm-2 col-form-label">Enrollment Number</label>
+                  <div class="col-sm-10">
+                    <input type="text" id="Enrollment" name="enrollment" class="form-control" required>
+                  </div>
+                </div>
+                
+               
+                <div class="row mb-3">
+                  <label for="Department" class="col-sm-2 col-form-label">Department</label>
+                  <div class="col-sm-10">
+              
+                    <select class="form-select" id="Department" name="department" aria-label="Default select example"required>
+                      <option selected></option>
+                      <option value="CSIT">Computer Science and Information Technology</option>
+                      
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="Year" class="col-sm-2 col-form-label">Year</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="Year" name="year"aria-label="Default select example"required>
+                      <option selected></option>
+                      <option value="2">2</option>
+                      <option value="3">3 </option>
+                      
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="Section" class="col-sm-2 col-form-label">Section</label>
+                  <div class="col-sm-10">
+                    <select class="form-select" id="Section"name="section" aria-label="Default select example" required>
+                      <option selected></option>
+                      <option value="CSIT 1">CSIT 1</option>
+                      <option value="CSIT 2">CSIT 2</option>
+                      <option value="CSIT 3">CSIT 3</option>
+                    </select>
+                  </div>
+                </div>
+
+               
+
+                <div class="row mb-3">
+                  
+                  <div class="col-sm-10">
+                    <button type="submit"  class="btn-sm btn-primary submit">ADD </button>
+                  </div>
+                </div>
+
+              </form><!-- end of  STUDENT FORM -->
+
+            </div>
+          </div>
+
+        </div>
+   
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+ 
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="/bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/bootstrap/chart.js/chart.umd.js"></script>
+  
+
+  <script src="/vendor/tinymce/tinymce.min.js"></script>
+  
+
+  <!--  Main JS File -->
+  <script src="/LandingPage_assetss/js/main.js"></script>
+  <script src="/js/main.js"></script>
+  
+
+</body>
+
+</html>

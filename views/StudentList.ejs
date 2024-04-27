@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Time Table</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!--CSS Files -->
+  <link href="/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bootstrap/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/bootstrap/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+
+  <!-- Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <%- include("templates/header.ejs") %>
+  <!--======= SideBar =======-->
+  <%- include("templates/sidebar.ejs") %>
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Student List</h1>
+      <nav>
+       
+      </nav>
+    </div><!-- End Page Title -->
+    <form  accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" id="infix_form"><input name="_token" type="hidden" value="wKUi5G0RILdRa6jyWzkHBKiKp2HY8CfV7Iz8Egre">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="white-box">
+                    <div class="row">
+                        
+                        <div class="col-lg-3">
+                            <div class="input-effect sm2_mb_20 md_mb_20">
+                                <select class="niceSelect w-100 bb form-control" name="academic_year" id="academic_year">
+                                    <option data-display="Academic Year *" value=""> Year</option>
+                                                                                <option value="3" >2023[23-24]</option>
+                                                                                <option value="5" >2023[2023/24]</option>
+                                                                                <option value="6" >2080[Academic]</option>
+                                                                                <option value="7" >2023[2024]</option>
+                                                                        </select>
+                                <span class="focus-border"></span>
+                                                                </div>
+                        </div>
+                        <div class="col-lg-3 sm_mb_20 sm2_mb_20 md_mb_20" id="class-div">
+                            <select class="niceSelect w-100 bb form-control " id="classSelectStudent" name="class">
+                                <option data-display="Select Class *" value="">Select Class</option>
+                                                                </select>
+                            
+                                                        </div>
+                        <div class="col-lg-2 col-md-3" id="sectionStudentDiv">
+                            <select class="niceSelect w-100 bb form-control" id="sectionSelectStudent" name="section">
+                                <option data-display="Section" value="">Section</option>
+                            </select>
+                           
+                                                        </div>
+                        <div class="col-lg-2">
+                            <div class="input-effect sm_mb_20 sm2_mb_20 md_mb_20">
+                                <input class="primary-input" type="text" name="name" value="">
+                                <label>Search By Name</label>
+                                <span class="focus-border"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="input-effect sm_mb_20 sm2_mb_20 md_mb_20">
+                                <input class="primary-input" type="text" name="roll_no" value="">
+                                <label>Search By Roll No</label>
+                                <span class="focus-border"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-20 text-right">
+                            <button type="submit" class="primary-btn small fix-gr-bg" id="btnsubmit">
+                                <span class="ti-search pr-2"></span>
+                                Search                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        </form>
+        <table id="dataTable">
+          <thead>
+             <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Enrollment no.</th>
+              <th>Year</th>
+              <th>Section</th>
+              <th>Department</th>
+             </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+
+       
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+ 
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+   <!-- JS Files -->
+   <script src="/bootstrap/apexcharts/apexcharts.min.js"></script>
+   <script src="/bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="/bootstrap/chart.js/chart.umd.js"></script>
+ 
+   <!-- Main JS File -->
+   <script src="/js/main.js"></script>
+
+</body>
+
+</html>

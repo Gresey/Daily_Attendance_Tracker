@@ -1,0 +1,12 @@
+{
+    "liveServer.settings.port": 5501,
+    "json.schemas": [
+        {
+          "fileMatch": [
+            "/package.json"
+          ],
+          "url": "https://json.schemastore.org/package",
+          "schema": true
+        },
+      ]
+}

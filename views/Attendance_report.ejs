@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Attendance report</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+   <!--CSS Files -->
+   <link href="/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+   <link href="/bootstrap/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+   <link href="/bootstrap/boxicons/css/boxicons.min.css" rel="stylesheet">
+ 
+ 
+   <!-- Main CSS File -->
+   <link href="/css/style.css" rel="stylesheet">
+</head>
+<style>
+  .white-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .data-table th {
+    background-color: #f2f2f2;
+  }
+  #keywords {
+    margin: 0 auto;
+
+    margin-bottom: 15px;
+  }
+
+  #keywords thead {
+    cursor: pointer;
+    background: #c9dff0;
+  }
+
+  #keywords thead tr th {
+    font-weight: bold;
+    padding: 12px 30px;
+    padding-left: 42px;
+  }
+
+  #keywords thead tr th span {
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: 100% 100%;
+  }
+
+  #keywords thead tr th.headerSortUp,
+  #keywords thead tr th.headerSortDown {
+    background: #acc8dd;
+  }
+
+  #keywords thead tr th.headerSortUp span {
+    background-image: url('https://i.imgur.com/SP99ZPJ.png');
+  }
+
+  #keywords thead tr th.headerSortDown span {
+    background-image: url('https://i.imgur.com/RkA9MBo.png');
+  }
+
+  #keywords tbody tr {
+    color: #555;
+  }
+
+  #keywords tbody tr td {
+    text-align: center;
+    padding: 10px;
+    /* Adjust padding as needed */
+  }
+
+  #keywords tbody tr td.lalign {
+    text-align: left;
+  }
+  .school-table th,
+  .school-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .school-table th {
+    background-color: #f2f2f2;
+  }
+
+</style>
+<body>
+  <!-- ======= Header ======= -->
+  <%- include("templates/header.ejs") %>
+  <!--======= SideBar =======-->
+  <%- include("templates/sidebar.ejs") %>
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Attendance Report </h1>
+           
+        </div><!-- End Page Title -->
+        <form method="GET" action="http://localhost:3000/searchTotalAttendance">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="white-box">
+                            <div class="row">
+                                <div class="col-lg-3 mb-3">
+                                    <div class="input-effect sm2_mb_20 md_mb_20">
+                                        <select class="niceSelect w-100 bb form-control" name="searchYear" id="searchYear"
+                                            style="font-size: 14px;">
+                                            <option data-display="Academic Year *" value="">Select Year</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                        <span class="focus-border"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 mb-3" id="class-div">
+                                    <select class="niceSelect w-100 bb form-control" id="searchSection" name="searchSection"
+                                        style="font-size: 14px;">
+                                        <option data-display="Select Class *" value="">Section</option>
+                                        <option value="CSIT 1">CSIT 1</option>
+                                        <option value="CSIT 2">CSIT 2</option>
+                                        <option value="CSIT 3">CSIT 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 mb-3" id="calendar-div">
+                                    <input type="date" id="attendanceDate" min="2023-01-01" style="font-size: 14px; height: 34px; width: 100%;">
+                                </div>
+                                <div class="col-lg-3 mt-20 text-right" style="font-size: medium;">
+                                    <button type="button" onclick="searchTotalAttendance()"class="btn btn-primary btn-sm submit" >
+                                        <span class="ti-search pr-2"></span>
+                                        NEXT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+           
+          
+        </form>
+
+        <div id="wrapper">
+         <div class="white-box">
+           <div class="row">
+
+           <div class="col-lg-12">
+         <table id="attendanceTable" class="display school-table school-table-style" cellspacing="0" width="100%">
+           <thead id="tableHeader">
+            <tr>
+              <th>Enrollment No</th>
+              <th>Student Name</th>
+              <th>CSIT601</th>
+              <th>CSIT602</th>
+              <th>CSIT603</th>
+            </tr>
+           </thead>
+           <tbody id="TableBody">
+            
+           </tbody>
+         
+         </table>
+        </div>
+        </div>
+        </div>
+        </div> 
+      
+    </main><!-- End #main -->
+
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+   
+  <!-- JS Files -->
+  <script src="/bootstrap/apexcharts/apexcharts.min.js"></script>
+  <script src="/bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/bootstrap/chart.js/chart.umd.js"></script>
+
+  <!-- Main JS File -->
+  <script src="/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+ 
+  
+    async function searchTotalAttendance() {
+      try {
+        const selectedYear = $("#searchYear").val();
+        const selectedSection = $("#searchSection").val();
+        const attendanceDateInput = document.getElementById("attendanceDate").value;
+        const response = await fetch(`http://localhost:3000/Attendance/searchTotalAttendance?year=${selectedYear}&section=${selectedSection}&date=${attendanceDateInput}`);
+    
+        if (!response.ok) {
+          throw new Error(`Failed to fetch entries. Status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+        updateAttendanceTable(data);
+      } catch (error) {
+        console.error("Error fetching entries:", error.message);
+      }
+    }
+    function updateAttendanceTable(entries) {
+      const tableBody = $("#TableBody");
+      const tableHeader = $("#tableHeader");
+      console.log(entries);
+      // Clear existing table data
+      tableBody.empty();
+     // tableHeader.empty();
+    
+      // Add table headers
+     /* const headers = `
+        <tr>
+          <th>Enrollment No</th>
+          <th>Student Name</th>
+          <th>CSIT601</th>
+          <th>CSIT602</th>
+          <th>CSIT603</th>
+        </tr>
+      `;
+      tableHeader.append(headers);*/
+    
+      // Loop through fetched entries and append rows to the table
+      entries[0].forEach((entry, index) => {
+        const row = `
+          <tr>
+            <td id="enrollmentNo">${entry.enrollment}</td>
+            <td id="studentName">${entry.name}</td>
+            <td id="CSIT601">${entry.CSIT601}</td>
+            <td id="CSIT602">${entry.CSIT602}</td>
+            <td id="CSIT603">${entry.CSIT603}</td>
+          </tr>`;
+      
+        tableBody.append(row);
+      });
+    }
+  </script>
+
+</body>
+
+</html>

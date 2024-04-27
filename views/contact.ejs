@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Contact DAT</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+ <!--CSS Files -->
+ <link href="/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <link href="/bootstrap/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+ <link href="/bootstrap/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+
+ <!-- Main CSS File -->
+ <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <%- include("templates/header.ejs") %>
+  <!--======= SideBar =======-->
+  <%- include("templates/sidebar.ejs") %>
+
+
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Contact</h1>
+      <nav>
+       
+      </nav>
+    </div>
+   <div class="Card">
+    <div class="Card-body">
+    <section class="contact" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+      <div class="container">
+
+        <div class="row" style="display: flex; justify-content: center; align-items: center;"> 
+
+          <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+  </div>
+</div>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+ 
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+   <!-- JS Files -->
+   <script src="/bootstrap/apexcharts/apexcharts.min.js"></script>
+   <script src="/bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="/bootstrap/chart.js/chart.umd.js"></script>
+ 
+   <!-- Main JS File -->
+   <script src="/js/main.js"></script>
+
+</body>
+
+</html>
