@@ -1,5 +1,8 @@
 import { Router } from 'express';
 const router = Router();
+import { handleCardUpdateDetails } from '../controllers/cardupdate.js';
+
+
 
 // Define GET endpoints
 router.get('/', (req, res) => {
@@ -14,9 +17,9 @@ router.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-router.get("/dashboard", (req, res) => {
-  res.render("dashboard.ejs");
-});
+
+router.get('/dashboard',handleCardUpdateDetails);
+
 
 router.get("/ADDSTUDENT", (req, res) => {
   res.render("ADDSTUDENT.ejs");

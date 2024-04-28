@@ -20,6 +20,7 @@ import pageRenderRoutes from "./routes/pageRenderRoutes.js";
 import StudentData from "./routes/StudentForm.js";
 import AttendanceRoutes from "./routes/attendanceRoutes.js";
 import searchEntries from "./routes/SearchEntries.js";
+import dashboard from "./routes/dashboard.js";
 
 import { name } from 'ejs';
 
@@ -67,6 +68,7 @@ createTables();
  
 app.use('/auth', authRoutes);
 //app.use('/dashboard', restrictToLoggedinUserOnly, pageRenderRoutes);
+app.use('/dashboard',dashboard);
 app.use('/',pageRenderRoutes);
 
 // Endpoint to handle add student form submissions
