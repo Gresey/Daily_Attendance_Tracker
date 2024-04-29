@@ -7,6 +7,7 @@ import { db } from '../sqlserver.js';
         const values = [name, email, enrollment, department, year, section];
     
         await db.query(sql, values);
+        res.status(200).send("Added Student Entry");
       } catch (err) {
         console.error('Error adding entry:', err);
         res.status(500).send('Error in adding entry');
