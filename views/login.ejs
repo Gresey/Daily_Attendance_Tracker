@@ -412,7 +412,7 @@ body {
                             </select>
                         </div>
 
-                        <button onclick="signup()">
+                        <button onclick="testSignup()">
                             Sign up
                         </button>
                         <p>
@@ -442,7 +442,8 @@ body {
                             <i class='bx bxs-lock-alt'></i>
                             <input id="password" type="password" placeholder="Password" name="password">
                         </div>
-                        <a href="/Dashboard">  <button >
+                        <!--href="/Dashboard"-->
+                        <a>  <button  onclick="testSignin()">
                             Sign in
                         </button></a>
                         <p>
@@ -512,56 +513,145 @@ toggle = () => {
 setTimeout(() => {
 	container.classList.add('sign-in')
 }, 200);
-function signup() {
-    console.log("Signup function triggered");
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('emailofuser').value;
-    const password = document.getElementById('userpassword').value;
-    const confirmPassword = document.getElementById('confirmpass').value;
-    const role = document.getElementById('sign-up-as').value;
+function testSignup() {
+      
+        const invalidEmail = testInvalidEmail();
+        const missingFields = testMissingFields();
+        const passwordMismatch = testPasswordMismatch();
 
-    if (password !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
+        if (invalidEmail || missingFields || passwordMismatch) {
+           
+            alert('Please correct the highlighted fields before signing up.');
+            return;
+        }
+        // If all test cases pass, proceed with sign-up
+        signup();
     }
 
-    fetch('/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password, role })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            console.log('Signup successful', data.token);
-        } else {
-            alert('Signup failed: ' + data.message);
+    function testSignin() {
+       
+        const missingSigninFields = testMissingSigninFields();
+
+        if (missingSigninFields) {
+            
+            alert('Please fill in both email and password fields.');
+            return;
         }
-    })
-    .catch(error => console.error('Error:', error));
-}
+        // If the test case passes, proceed with sign-in
+        signin();
+    }
 
-function signin() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    fetch('/auth/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            // Redirect to dashboard or do something with the token
-            console.log('Signin successful', data.token);
-        } else {
-            alert('Signin failed: ' + data.message);
+    function testInvalidEmail() {
+        const email = document.getElementById('emailofuser').value;
+        if (!isValidEmail(email)) {
+         
+            
+            alert('Please enter a valid email address.');
+            return true; // Test case failed
         }
-    })
-    .catch(error => console.error('Error:', error));
-}
+        return false; // Test case passed
+    }
 
+    function isValidEmail(email) {
+       
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function testMissingFields() {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('emailofuser').value;
+        const password = document.getElementById('userpassword').value;
+        const confirmPassword = document.getElementById('confirmpass').value;
+        const role = document.getElementById('sign-up-as').value;
+
+        if (!username || !email || !password || !confirmPassword || role === 'none') {
+     
+            if (!username) {
+                document.getElementById('username').style.borderColor = 'red';
+            }
+            if (!email) {
+                document.getElementById('emailofuser').style.borderColor = 'red';
+            }
+            if (!password) {
+                document.getElementById('userpassword').style.borderColor = 'red';
+            }
+            if (!confirmPassword) {
+                document.getElementById('confirmpass').style.borderColor = 'red';
+            }
+            if (role === 'none') {
+                document.getElementById('sign-up-as').style.borderColor = 'red';
+            }
+            return true; // Test case failed
+        }
+        return false; // Test case passed
+    }
+
+    function testPasswordMismatch() {
+        const password = document.getElementById('userpassword').value;
+        const confirmPassword = document.getElementById('confirmpass').value;
+
+        if (password !== confirmPassword) {
+           
+            alert('Passwords do not match!');
+            return true; // Test case failed
+        }
+        return false; // Test case passed
+    }
+
+    function testMissingSigninFields() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            
+            if (!email) {
+                document.getElementById('email').style.borderColor = 'red';
+            }
+            if (!password) {
+                document.getElementById('password').style.borderColor = 'red';
+            }
+            return true; // Test case failed
+        }
+        return false; // Test case passed
+    }
+
+    function signup() {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('emailofuser').value;
+        const password = document.getElementById('userpassword').value;
+        const confirmPassword = document.getElementById('confirmpass').value;
+        const role = document.getElementById('sign-up-as').value;
+
+        // Additional check for password mismatch
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        // Make sign-up request
+        fetch('/auth/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password, role })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.token) {
+                console.log('Signup successful', data.token);
+            } else {
+                alert('Signup failed: ' + data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function signin() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        window.location.href = '/dashboard';
+    }
     </script>
         
 </body>
