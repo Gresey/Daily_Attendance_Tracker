@@ -17,9 +17,9 @@
 //         }
        
 //     }
-import jwt from'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-const secret = "DAT";
+const secret = process.env.JWT_SECRET || 'your_secret_key';
 
 export async function hashPassword(password) {
   return bcrypt.hash(password, 12);
@@ -31,7 +31,7 @@ export async function checkPassword(inputPassword, hashedPassword) {
 
 export function generateToken(user) {
   return jwt.sign({
-    _id: user._id,
+    id: user.id,
     email: user.email,
   }, secret, { expiresIn: '1h' });
 }

@@ -31,7 +31,7 @@ export async function handleCardUpdateDetails(req, res) {
             }
         });
 
-        // Extract counts from the result
+        // Extract counts from the resultx
         if (rows.length > 0) {
             csit601PresentCount = rows[0].csit601_present_count;
             csit601AbsentCount = rows[0].csit601_absent_count;

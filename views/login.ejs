@@ -412,7 +412,7 @@ body {
                             </select>
                         </div>
 
-                        <button onclick="testSignup()">
+                        <button type="submit" onclick="signup()">
                             Sign up
                         </button>
                         <p>
@@ -443,7 +443,7 @@ body {
                             <input id="password" type="password" placeholder="Password" name="password">
                         </div>
                         <!--href="/Dashboard"-->
-                        <a>  <button  onclick="testSignin()">
+                        <a>  <button  onclick="signin()">
                             Sign in
                         </button></a>
                         <p>
@@ -615,44 +615,54 @@ function testSignup() {
         }
         return false; // Test case passed
     }
+    async function signup() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('emailofuser').value;
+            const password = document.getElementById('userpassword').value;
+            const confirmPassword = document.getElementById('confirmpass').value;
+            const role = document.getElementById('sign-up-as').value;
 
-    function signup() {
-        const username = document.getElementById('username').value;
-        const email = document.getElementById('emailofuser').value;
-        const password = document.getElementById('userpassword').value;
-        const confirmPassword = document.getElementById('confirmpass').value;
-        const role = document.getElementById('sign-up-as').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
 
-        // Additional check for password mismatch
-        if (password !== confirmPassword) {
-            alert('Passwords do not match!');
-            return;
+            await fetch('/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password, role })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert('Signup successful');
+                } else {
+                    alert('Signup failed: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
 
-        // Make sign-up request
-        fetch('/auth/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, email, password, role })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.token) {
-                console.log('Signup successful', data.token);
-            } else {
-                alert('Signup failed: ' + data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+        async function signin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-    function signin() {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        window.location.href = '/dashboard';
-    }
-    </script>
+            await fetch('/auth/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('Signin failed: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+     </script>
         
 </body>
 </html>

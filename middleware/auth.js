@@ -15,14 +15,17 @@
 import { verifyToken } from '../service/auth.js';
 
 export function restrictToLoggedinUserOnly(req, res, next) {
-  const token = req.cookies?.token;
+  const token = req.cookies.token;
   if (!token) {
-    return res.status(401).redirect('/login');
+    return res.redirect('/login');
   }
-  const user = verifyToken(token);
-  if (!user) {
-    return res.status(401).redirect('/login');
+
+  const decoded = verifyToken(token);
+  if (!decoded) {
+    return res.redirect('/login');
   }
-  req.user = user;
+
+  req.user = decoded;
   next();
 }
+

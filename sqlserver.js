@@ -66,13 +66,15 @@ async function createTables(){
 createTables();
 
  
-app.use('/auth', authRoutes);
-//app.use('/dashboard', restrictToLoggedinUserOnly, pageRenderRoutes);
-app.use('/dashboard',dashboard);
+
+app.use('/dashboard', restrictToLoggedinUserOnly,dashboard);
+//app.use('/dashboard',dashboard);
 app.use('/',pageRenderRoutes);
 
 // Endpoint to handle add student form submissions
 app.use('/submitForm',StudentData);
+
+app.use('/auth',authRoutes);
 
 // Endpoint to handle searchEntries
 app.use('/searchEntries',searchEntries);
@@ -84,6 +86,6 @@ app.listen(port, () => {
   console.log(`Server is running on port no ${port}`);
 });
 
-
-
-
+// Remove the following line since 'db' has already been exported earlier in the code
+// export const db = pool;
+//export const db = pool;
