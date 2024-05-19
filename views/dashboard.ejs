@@ -24,10 +24,71 @@
   <!-- Main CSS File -->
   <link rel="stylesheet" href="/css/style.css">
   
+  <style>
+    .card-container {
+  display: flex;
+  overflow-x: auto;
+  
+  gap: 1rem;
+}
+.bg-m-dblue {
+  background-color: #007bff;
+}
+
+.bg-m-gray {
+  background-color: #6c757d;
+}
+
+.bg-m-orange {
+  background-color: #fd7e14;
+}
+#fetchDataButton {
+  padding: 5px 10px;
+  font-size: 12px;
+ 
+  background-color: transparent;
+  border:  1px solid #6c757d;
+  color: black; /* Text color */
+}
+
+.card-container .card1 {
+  min-width: 250px; /* Adjust the width of each card */
+  flex: 0 0 auto;
+}
+
+.card1 {
+  background-color: #2a2a72;
+  border-radius: 15px;
+  color: #fff;
+  
+  margin: 1rem 0;
+}
+
+.card-block {
+  padding: 1rem;
+}
+.custom-btn {
+  padding: 5px 10px; /* Adjust padding for size */
+  font-size: 14px; /* Adjust font size */
+  background-color:  transparent; /* Transparent background */
+  border: 1px solid  #2a2a72; /* Black border */
+  border-radius: 50px; /* Circular border */
+  color: black; /* Text color */
+   
+  
+}
+
+.custom-btn:hover {
+  background-color:  #2a2a72; /* Change background color on hover */
+  color: white; /* Change text color on hover */
+}
+  </style>
 </head>
 
 <body>
 
+
+  
   <!-- ======= Header ======= -->
   <%- include("templates/header.ejs") %>
   <!--======= SideBar =======-->
@@ -42,452 +103,320 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <!--Count bunk cards-->
-      <div class="row1">
 
-        <!-- order-card start -->
-        <div class="col-md-6 col-xl-3">
-
-            <div class="card1 bg-m-dblue order-card m-round">
-                <div class="card-block ">
-                 
-                    <h6 class="m-b-0">CSIT-1<span class="f-right" >2nd year</span></h6>
-                    <br>
-                    <h6 class="m-b-0">Subject : <span style='font-size:small'>DBMS</span></h6>
-                    <br>
-                       
-                  <h6 class="m-b-0">Total count<span class="f-right"><%= totalcount %></span></h6>
-                  <h6 class="m-b-0">Present <span class="f-right"><%= presentcount %></span></h6>
-                  <h6 class="m-b-0">Bunk <span class="f-right"><%= bunk %></span></h6>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-6 col-xl-3">
-
-            <div class="card1 bg-m-gray order-card m-round">
-                <div class="card-block ">
-                   
-                  <h6 class="m-b-0">CSIT-2<span class="f-right" >2nd year</span></h6>
-                    <br>
-                    <h6 class="m-b-0">Subject : <span style='font-size:small'>Operating Sytem</span></h6>
-                    <br>
-                       
-                  <h6 class="m-b-0">Total count<span class="f-right">70</span></h6>
-                  <h6 class="m-b-0">Present <span class="f-right">0</span></h6>
-                  <h6 class="m-b-0">Bunk <span class="f-right">0</span></h6>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-6 col-xl-3">
-
-            <div class="card1 bg-m-orange order-card m-round">
-                <div class="card-block ">
-                   
-                  <h6 class="m-b-0">CSIT-3<span class="f-right" >2nd year</span></h6>
-                    <br>
-                    <h6 class="m-b-0">Subject : <span style='font-size:small'>Computer Network</span></h6>
-                    <br>
-                       
-                    <h6 class="m-b-0">Total count<span class="f-right">70</span></h6>
-                    <h6 class="m-b-0">Present <span class="f-right">0</span></h6>
-                    <h6 class="m-b-0">Bunk <span class="f-right">0</span></h6>
-                </div>
-            </div>
-</a>
-        </div>
-        <div class="col-md-6 col-xl-3">
-
-            <div class="card1 bg-m-dblue order-card m-round">
-                <div class="card-block ">
-                   
-                  <h6 class="m-b-0">CSIT-1<span class="f-right">3rd year</span></h6>
-                  <br>
-                  <h6 class="m-b-0">Subject : <span style='font-size:small'>Machine Learning</span></h6>
-                  <br>
-                  
-                  <h6 class="m-b-0">Total count<span class="f-right">70</span></h6>
-                  <h6 class="m-b-0">Present <span class="f-right">0</span></h6>
-                  <h6 class="m-b-0">Bunk <span class="f-right">0</span></h6>   </div>
-            </div>
-
-        </div>
-        <div class="col-md-6 col-xl-3">
-
-            <div class="card1 bg-m-gray order-card m-round">
-                <div class="card-block ">
-                  <h6 class="m-b-0">CSIT-2<span class="f-right" >3rd year</span></h6>
-                  <br>
-                  <h6 class="m-b-0">Subject : <span style='font-size:small'>DBMS</span></h6>
-                  <br>
-                  
-                    
-                  <h6 class="m-b-0">Total count<span class="f-right">70</span></h6>
-                  <h6 class="m-b-0">Present <span class="f-right">0</span></h6>
-                  <h6 class="m-b-0">Bunk <span class="f-right">0</span></h6>   </div>
-            </div>
-
-        </div>
-        <div class="col-md-6 col-xl-3">
-
-            <div class="card1 bg-m-orange order-card m-round">
-                <div class="card-block ">
-                  <h6 class="m-b-0">CSIT-3<span class="f-right" >3rd year</span></h6>
-                    <br>
-                    <h6 class="m-b-0">Subject : <span style='font-size:small'>DBMS</span></h6>
-                    <br>
-                       
-                    <h6 class="m-b-0">Total count<span class="f-right">70</span></h6>
-                    <h6 class="m-b-0">Present <span class="f-right">0</span></h6>
-                    <h6 class="m-b-0">Bunk <span class="f-right">0</span></h6>  </div>
-            </div>
-
-        </div>
-        
-       
+      <!--Attendance cards-->
       
+        <div id="cardContainer" class="card-container mt-3"></div>
+    
+      <!--Attendance cards-->
+      
+      
+      
+     <div class="row">
 
-       
-      </div>
-      <!--end of count bunk cards-->
-      <div class="row">
-
-        <div class="col-lg-8 ">
+        <!-- Line Chart -->
+        <div class="col-lg-8">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Students Count</h5>
-
-              <!-- Line Chart -->
-              <canvas id="lineChart" style="max-height: 700px;"></canvas>
+              <Form id="dataForm">
+              <div class="card-dropdowns" style="display: flex; justify-content: space-between;">
+                <h5 class="card-title">Students Count</h5>
+            
+                <div class="card-options">
+                  <select id="yearDropdown" style="height: 30px; margin-top: 10px; font-size: 14px;">
+                    <option hidden selected disabled value="null">Year</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+            
+                <div class="card-options">
+                  <select id="sectionDropdown" style="height: 30px; margin-top: 10px; font-size: 14px;">
+                    <option hidden selected disabled value="null">Section</option>
+                    
+                      <option value="CSIT 1">CSIT 1</option>
+                      <option value="CSIT 2">CSIT 2</option>
+                      <option value="CSIT 3">CSIT 3</option>
+                  </select>
+                </div>
+              </div>
+            </Form>
+            
+              <button id="fetchDataButton" style="margin-top: 10px;">Fetch Data</button>
+            
+              <canvas id="lineChart" style="max-height: 550px;"></canvas>
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                  new Chart(document.querySelector('#lineChart'), {
-                    type: 'line',
-                    data: {
-                      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                      datasets: [{
-                        label: 'Count',
-                        data: [65, 59, 80, 81, 56, 55, 40],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                      }]
-                    },
-                    options: {
-                      scales: {
-                        y: {
-                          beginAtZero: true
-                        }
-                      }
+                  const yearDropdown = document.getElementById('yearDropdown');
+                  const sectionDropdown = document.getElementById('sectionDropdown');
+                  const fetchDataButton = document.getElementById('fetchDataButton');
+                  let lineChartInstance = null;
+              
+                  function fetchData() {
+                    const year = yearDropdown.value;
+                    const section = sectionDropdown.value;
+                    if (year && section) {
+                      fetch(`/weeklyattendance/getWeeklyAttendanceCount?year=${year}&section=${section}`)
+                        .then(response => response.json())
+                        .then(data => {
+                          console.log(data);
+                          const labels = Object.keys(data);
+                          const counts = Object.values(data);
+              
+                          // Destroy the previous chart instance if it exists
+                          if (lineChartInstance) {
+                            lineChartInstance.destroy();
+                          }
+              
+                          // Create a new chart instance
+                          const ctx = document.querySelector('#lineChart').getContext('2d');
+                          lineChartInstance = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                              labels: labels,
+                              datasets: [{
+                                label: 'Count',
+                                data: counts,
+                                fill: true,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                              }]
+                            },
+                            options: {
+                              scales: {
+                                x: {
+                                  ticks: {
+                                    stepSize: 10 // Set step size for x-axis ticks
+                                  }
+                                },
+                                y: {
+                                  beginAtZero: true
+                                }
+                              }
+                            }
+                          });
+                        });
                     }
-                  });
+                  }
+              
+                  // Call fetchData on page load with default values
+                  fetchData();
+              
+                  // Attach click event listener to fetchDataButton
+                  fetchDataButton.addEventListener('click', fetchData);
+              
                 });
               </script>
-              <!-- End Line CHart -->
-
-            </div>
-          </div>
-          
-
-            <!--Calender-->
-            <div class="col-5">
-              <div class="card">
-                <div class="contianer">
-                  <div class="calendar">
-                    <div class="calendar-header">
-                      <span class="month-picker" id="month-picker"> May </span>
-                      <div class="year-picker" id="year-picker">
-                        <span class="year-change" id="pre-year">
-                          <pre><</pre>
-                        </span>
-                        <span id="year">2020 </span>
-                        <span class="year-change" id="next-year">
-                          <pre>></pre>
-                        </span>
-                      </div>
-                    </div>
-             
-                    <div class="calendar-body">
-                      <div class="calendar-week-days">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                      </div>
-                      <div class="calendar-days">
-                      </div>
-                    </div>
-                    <div class="calendar-footer">
-                    </div>
-                    <div class="date-time-formate">
-                      <div class="day-text-formate">TODAY</div>
-                      <div class="date-time-value">
-                        <div class="time-formate">02:51:20</div>
-                        <div class="date-formate">23 - july - 2022</div>
-                      </div>
-                    </div>
-                    <div class="month-list"></div>
-                  
-              </div></div>
               
-            
-              <script>
-            const isLeapYear = (year) => {
-              return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-            };
-            
-            const getFebDays = (year) => {
-              return isLeapYear(year) ? 29 : 28;
-            };
-            
-            let calendar = document.querySelector('.calendar');
-            const month_names = [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-              'August',
-              'September',
-              'October',
-              'November',
-              'December',
-            ];
-            let month_picker = document.querySelector('#month-picker');
-            const dayTextFormate = document.querySelector('.day-text-formate');
-            const timeFormate = document.querySelector('.time-formate');
-            const dateFormate = document.querySelector('.date-formate');
-            
-            month_picker.onclick = () => {
-              month_list.classList.remove('hideonce');
-              month_list.classList.remove('hide');
-              month_list.classList.add('show');
-              dayTextFormate.classList.remove('showtime');
-              dayTextFormate.classList.add('hidetime');
-              timeFormate.classList.remove('showtime');
-              timeFormate.classList.add('hidetime');
-              dateFormate.classList.remove('showtime');
-              dateFormate.classList.add('hidetime');
-            };
-            
-            const generateCalendar = (month, year) => {
-              let calendar_days = document.querySelector('.calendar-days');
-              calendar_days.innerHTML = '';
-              let calendar_header_year = document.querySelector('#year');
-              let days_of_month = [
-                31,
-                getFebDays(year),
-                31,
-                30,
-                31,
-                30,
-                31,
-                31,
-                30,
-                31,
-                30,
-                31,
-              ];
-            
-              let currentDate = new Date();
-            
-              month_picker.innerHTML = month_names[month];
-            
-              calendar_header_year.innerHTML = year;
-            
-              let first_day = new Date(year, month, 1);
-            
-              for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
-                let day = document.createElement('div');
-            
-                if (i >= first_day.getDay()) {
-                  day.innerHTML = i - first_day.getDay() + 1;
-            
-                  if (
-                    i - first_day.getDay() + 1 === currentDate.getDate() &&
-                    year === currentDate.getFullYear() &&
-                    month === currentDate.getMonth()
-                  ) {
-                    day.classList.add('current-date');
-                  }
-                }
-                calendar_days.appendChild(day);
-              }
-            };
-            
-            let month_list = document.querySelector('.month-list');
-            month_names.forEach((e, index) => {
-              let month = document.createElement('div');
-              month.innerHTML = `<div>${e}</div>`;
-            
-              month_list.append(month);
-              month.onclick = () => {
-                currentMonth.value = index;
-                generateCalendar(currentMonth.value, currentYear.value);
-                month_list.classList.replace('show', 'hideonce');
-                dayTextFormate.classList.remove('hidetime');
-                dayTextFormate.classList.add('showtime');
-                timeFormate.classList.remove('hidetime');
-                timeFormate.classList.add('showtime');
-                dateFormate.classList.remove('hidetime');
-                dateFormate.classList.add('showtime');
-              };
-            });
-            
-            (function () {
-              month_list.classList.add('hideonce');
-            })();
-            
-            document.querySelector('#pre-year').onclick = () => {
-              currentYear.value--;
-              generateCalendar(currentMonth.value, currentYear.value);
-            };
-            
-            document.querySelector('#next-year').onclick = () => {
-              currentYear.value++;
-              generateCalendar(currentMonth.value, currentYear.value);
-            };
-            
-            let currentDate = new Date();
-            let currentMonth = { value: currentDate.getMonth() };
-            let currentYear = { value: currentDate.getFullYear() };
-            generateCalendar(currentMonth.value, currentYear.value);
-            
-            const todayShowTime = document.querySelector('.time-formate');
-            const todayShowDate = document.querySelector('.date-formate');
-            
-            const currshowDate = new Date();
-            const showCurrentDateOption = {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              weekday: 'long',
-            };
-            const currentDateFormate = new Intl.DateTimeFormat(
-              'en-US',
-              showCurrentDateOption
-            ).format(currshowDate);
-            todayShowDate.textContent = currentDateFormate;
-            
-            setInterval(() => {
-              const timer = new Date();
-              const option = {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-              };
-              const formateTimer = new Intl.DateTimeFormat('en-us', option).format(timer);
-              let time = `${timer.getHours().toString().padStart(2, '0')}:${timer.getMinutes().toString().padStart(2, '0')}:${timer.getSeconds().toString().padStart(2, '0')}`;
-              todayShowTime.textContent = formateTimer;
-            }, 1000);
-            
-              </script>
-
-              </div>
-
+              <!-- End Line Chart -->
             </div>
-          
+            
+          </div>
+       
+        
         </div>
 
-        <!-- Schedule -->
-        <div class="col-lg-4">
-          
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Select Year</h6>
-                </li>
 
-                <li><a class="dropdown-item" href="#">Second Year</a></li>
-                <li><a class="dropdown-item" href="#">Third Year</a></li>
+          <!--Calendar-->
+          <div class="col-2">
+            <div class="card">
+              <div class="contianer">
+                <div class="calendar">
+                  <div class="calendar-header">
+                    <span class="month-picker" id="month-picker"> May </span>
+                    <div class="year-picker" id="year-picker">
+                      <span class="year-change" id="pre-year">
+                        <pre></pre>
+                      </span>
+                      <span id="year">2020 </span>
+                      <span class="year-change" id="next-year">
+                        <pre>></pre>
+                      </span>
+                    </div>
+                  </div>
+           
+                  <div class="calendar-body">
+                    <div class="calendar-week-days">
+                      <div>Sun</div>
+                      <div>Mon</div>
+                      <div>Tue</div>
+                      <div>Wed</div>
+                      <div>Thu</div>
+                      <div>Fri</div>
+                      <div>Sat</div>
+                    </div>
+                    <div class="calendar-days">
+                    </div>
+                  </div>
+                  <div class="calendar-footer">
+                  </div>
+                  <div class="date-time-formate">
+                    <div class="day-text-formate">TODAY</div>
+                    <div class="date-time-value">
+                      <div class="time-formate">02:51:20</div>
+                      <div class="date-formate">23 - july - 2022</div>
+                    </div>
+                  </div>
+                  <div class="month-list"></div>
                 
-              </ul>
+            </div></div>
+            
+          
+            <script>
+          const isLeapYear = (year) => {
+            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+          };
+          
+          const getFebDays = (year) => {
+            return isLeapYear(year) ? 29 : 28;
+          };
+          
+          let calendar = document.querySelector('.calendar');
+          const month_names = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+          ];
+          let month_picker = document.querySelector('#month-picker');
+          const dayTextFormate = document.querySelector('.day-text-formate');
+          const timeFormate = document.querySelector('.time-formate');
+          const dateFormate = document.querySelector('.date-formate');
+          
+          month_picker.onclick = () => {
+            month_list.classList.remove('hideonce');
+            month_list.classList.remove('hide');
+            month_list.classList.add('show');
+            dayTextFormate.classList.remove('showtime');
+            dayTextFormate.classList.add('hidetime');
+            timeFormate.classList.remove('showtime');
+            timeFormate.classList.add('hidetime');
+            dateFormate.classList.remove('showtime');
+            dateFormate.classList.add('hidetime');
+          };
+          
+          const generateCalendar = (month, year) => {
+            let calendar_days = document.querySelector('.calendar-days');
+            calendar_days.innerHTML = '';
+            let calendar_header_year = document.querySelector('#year');
+            let days_of_month = [
+              31,
+              getFebDays(year),
+              31,
+              30,
+              31,
+              30,
+              31,
+              31,
+              30,
+              31,
+              30,
+              31,
+            ];
+          
+            let currentDate = new Date();
+          
+            month_picker.innerHTML = month_names[month];
+          
+            calendar_header_year.innerHTML = year;
+          
+            let first_day = new Date(year, month, 1);
+          
+            for (let i = 0; i <= days_of_month[month] + first_day.getDay() - 1; i++) {
+              let day = document.createElement('div');
+          
+              if (i >= first_day.getDay()) {
+                day.innerHTML = i - first_day.getDay() + 1;
+          
+                if (
+                  i - first_day.getDay() + 1 === currentDate.getDate() &&
+                  year === currentDate.getFullYear() &&
+                  month === currentDate.getMonth()
+                ) {
+                  day.classList.add('current-date');
+                }
+              }
+              calendar_days.appendChild(day);
+            }
+          };
+          
+          let month_list = document.querySelector('.month-list');
+          month_names.forEach((e, index) => {
+            let month = document.createElement('div');
+            month.innerHTML = `<div>${e}</div>`;
+          
+            month_list.append(month);
+            month.onclick = () => {
+              currentMonth.value = index;
+              generateCalendar(currentMonth.value, currentYear.value);
+              month_list.classList.replace('show', 'hideonce');
+              dayTextFormate.classList.remove('hidetime');
+              dayTextFormate.classList.add('showtime');
+              timeFormate.classList.remove('hidetime');
+              timeFormate.classList.add('showtime');
+              dateFormate.classList.remove('hidetime');
+              dateFormate.classList.add('showtime');
+            };
+          });
+          
+          (function () {
+            month_list.classList.add('hideonce');
+          })();
+          
+          document.querySelector('#pre-year').onclick = () => {
+            currentYear.value--;
+            generateCalendar(currentMonth.value, currentYear.value);
+          };
+          
+          document.querySelector('#next-year').onclick = () => {
+            currentYear.value++;
+            generateCalendar(currentMonth.value, currentYear.value);
+          };
+          
+          let currentDate = new Date();
+          let currentMonth = { value: currentDate.getMonth() };
+          let currentYear = { value: currentDate.getFullYear() };
+          generateCalendar(currentMonth.value, currentYear.value);
+          
+          const todayShowTime = document.querySelector('.time-formate');
+          const todayShowDate = document.querySelector('.date-formate');
+          
+          const currshowDate = new Date();
+          const showCurrentDateOption = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long',
+          };
+          const currentDateFormate = new Intl.DateTimeFormat(
+            'en-US',
+            showCurrentDateOption
+          ).format(currshowDate);
+          todayShowDate.textContent = currentDateFormate;
+          
+          setInterval(() => {
+            const timer = new Date();
+            const option = {
+              hour: 'numeric',
+              minute: 'numeric',
+              second: 'numeric',
+            };
+            const formateTimer = new Intl.DateTimeFormat('en-us', option).format(timer);
+            let time = `${timer.getHours().toString().padStart(2, '0')}:${timer.getMinutes().toString().padStart(2, '0')}:${timer.getSeconds().toString().padStart(2, '0')}`;
+            todayShowTime.textContent = formateTimer;
+          }, 1000);
+          
+            </script>
+
             </div>
 
-            <div class="card-body">
-              <h5 class="card-title">Schedule <span>| Monday</span></h5>
-
-              <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">10:40</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Wireless Mobile Computing/Computer Graphics<a href="#" class="fw-bold text-dark"></a> 
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">11:20</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Cryptography & N/W Security
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">12:10</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Software Engineering & Agile
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">13:00</div>
-                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                  <div class="activity-content">
-                   Lunch <a href="#" class="fw-bold text-dark"></a>
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">13:50</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Android Lab
-                  </div>
-                </div><!-- End activity item-->
-                <div class="activity-item d-flex">
-                  <div class="activite-label">14:40 </div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Android Lab
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">15:30 </div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Machine Learning
-                  </div>
-                </div><!-- End activity item-->
-                <div class="activity-item d-flex">
-                  <div class="activite-label">16:15</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Sports
-                  </div>
-                </div><!-- End activity item-->
-
-              </div>
-
-            </div>
-          </div><!-- End Recent Activity -->
-      </div><!-- End Right side columns -->
-      </div><!--row ends-->
-        <!-- right side columns -->
-      
-       <!-- End Right side columns -->
+          </div>
+        </div>
+       
+      </div>
+       
+   
       
     </section>
 
@@ -506,7 +435,50 @@
  
    <!-- Template Main JS File -->
    <script src="/js/main.js"></script>
- 
+   <script>
+ async function retrieveAttendanceData() {
+  try {
+    const response = await fetch(`/fetchAttendanceData`);
+    const data = await response.json();
+    const cardContainer = document.getElementById('cardContainer');
+    cardContainer.innerHTML = '';
+
+    const colors = ['bg-m-dblue', 'bg-m-gray', 'bg-m-orange'];
+
+    data.forEach((item, index) => {
+      const cardDiv = document.createElement('div');
+      cardDiv.classList.add('col-md-5', 'col-xl-3');
+
+      const colorClass = colors[index % colors.length]; // Choose color alternatively
+
+      const cardContent = `
+        <div class="card1 ${colorClass} order-card m-round">
+          <div class="card-block">
+            <h6 class="m-b-0">${item.section}<span class="f-right" style='font-size:medium'>${item.year}</span></h6>
+            <br>
+            <h6 class="m-b-0">Subject: <span style='font-size:small'>${item.subject}</span></h6>
+            <br>
+            <h6 class="m-b-0">Total count<span class="f-right">${item.totalcount}</span></h6>
+            <h6 class="m-b-0">Present <span class="f-right">${item.presentcount}</span></h6>
+            <h6 class="m-b-0">Bunk <span class="f-right">${item.bunk}</span></h6>
+          </div>
+        </div>
+      `;
+      cardDiv.innerHTML = cardContent;
+      cardContainer.appendChild(cardDiv);
+    });
+
+  } catch (error) {
+    console.error('Error fetching attendance data:', error);
+  }
+}
+
+// Execute the function on page load
+document.addEventListener('DOMContentLoaded', () => {
+  retrieveAttendanceData();
+});
+
+</script>
  </body>
  
  </html>     

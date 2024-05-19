@@ -1,4 +1,4 @@
-import { db } from '../sqlserver.js';
+import { db } from '../db.js';
 export async function handleSearchStudentEntries(req,res){
     try {
         const { year, section } = req.query;

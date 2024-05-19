@@ -33,6 +33,7 @@ export function generateToken(user) {
   return jwt.sign({
     id: user.id,
     email: user.email,
+    name: user.name // Include user's name in the JWT payload
   }, secret, { expiresIn: '1h' });
 }
 

@@ -23,199 +23,33 @@
 
  <!-- Main CSS File -->
  <link href="/css/style.css" rel="stylesheet">
-    <style>
+ <style>
+   .input-group {
+      display: flex;
+      align-items: center;
+    }
+    .input-group label {
+      margin-right: 10px;
+    }
+  .card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 750px;
+    height: 520px; /* Set a smaller card width */
+    text-align: center;
+  }
+ 
 
-        body {
-          margin-top: 5px;
-        }
-        .schedule-table table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-        .schedule-table table thead tr {
-         
-          border: 1px solid #858080;
-        }
-        .schedule-table table tbody tr td {
-            border: 1px solid #858080;
-          }
-        .schedule-table table thead tr th {
-            border: 1px solid #858080;
-          }
-        .schedule-table table thead th {
-          padding: 15px 25px;
-          color:#000;
-         
-          text-align: center;
-          font-size: 11px;
-          font-weight: 600;
-          position: relative;
-          border: 0;
-        }
-        
-        
-        .schedule-table table thead th {
-            padding: 15px 25px;
-            color:#000;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-          }
-        .schedule-table table tbody td {
-          vertical-align: middle;
-          
-          border: 0.25px solid #858080;
-          font-weight: 600;
-          padding: 10px;
-          text-align: center;
-        }
-        .schedule-table table tbody td.day {
-          font-size: 12px;
-          font-weight: 600;
-          font-weight: 600;
-          background: #f0f1f3;
-          
-        }
-        .schedule-table table tbody td.active {
-          position: relative;
-          z-index: 10;
-          transition: all 0.3s linear 0s;
-          min-width: 50px;
-        }
-        .schedule-table table tbody td.active h4 {
-          font-weight: 700;
-          color: #000;
-          font-size: 12px;
-          margin-bottom: 5px;
-        }
-        .schedule-table table tbody td.active p {
-          font-size: 12px;
-          line-height: normal;
-          margin-bottom: 0;
-        }
-        .schedule-table table tbody td h4 {
-          font-weight: 700;
-          font-size: 12px;
-          color: #ffffff;
-          margin-bottom: 5px;
-        }
-        .schedule-table table tbody td span p {
-          font-size: 16px;
-          margin-bottom: 5px;
-          color: #ffffff;
-          line-height: normal;
-        }
-        .schedule-table table tbody td span {
-          color: #ffffff;
-          font-weight: 600;
-          font-size: 12px;
-        }
-        .schedule-table table tbody td.active::before {
-          position: absolute;
-          content: "";
-          min-width: 80%;
-          min-height: 80%;
-          transform: scale(0);
-          top: 0;
-          left: 0;
-          z-index: -1;
-          border-radius: 0.25rem;
-          transition: all 0.3s linear 0s;
-        }
-        .schedule-table table tbody td span {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 100%;
-          height: 100%;
-          transform: translate(-50%, -50%) scale(0.8);
-          z-index: 99;
-          background: #86d4f5;
-          border-radius: 0.25rem;
-          padding: 20px 0;
-          visibility: hidden;
-          opacity: 0;
-          transition: all 0.3s linear 0s;
-        }
-        .schedule-table table tbody td.active span{
-          transform: translate(-50%, -50%) scale(1);
-          visibility: visible;
-          opacity: 1;
-        }
-        .schedule-table table tbody td.day {
-          background: #ffffff;
-          color: #000;
-          border: 0.5px solid #858080;
-        }
-        @media screen and (max-width: 600px) {
-          .schedule-table {
-            display: block;
-            width: 90%;
-            overflow-x: auto;
-          }
-          .schedule-table table thead th {
-            padding: 20px 30px;
-          }
-          .schedule-table table tbody td {
-            padding: 10px;
-          }
-          .schedule-table table tbody td.active h4 {
-            font-size: 10px;
-          }
-          .schedule-table table tbody td.active p {
-            font-size: 10px;
-          }
-          .schedule-table table tbody td.day {
-            font-size: 10px;
-          }
-          .schedule-table table tbody td {
-            padding: 10px 0;
-          }
-          .schedule-table table tbody td span {
-            font-size: 10px;
-          }
-        }
-        @media screen and (max-width: 801px) {
-          .schedule-table table thead th {
-            font-size: 12px;
-            padding: 20px;
-          }
-          .schedule-table table tbody td.day {
-            font-size: 12px;
-          }
-          .schedule-table table tbody td.active h4 {
-            font-size: 12px;
-          }
-        }
-        @media screen and (max-width: 767px) {
-          .schedule-table table thead th {
-            padding: 15px;
-          }
-          .schedule-table table tbody td {
-            padding: 15px;
-          }
-          .schedule-table table tbody td.active h4 {
-            font-size: 12px;
-          }
-          .schedule-table table tbody td.active p {
-            font-size: 12px;
-          }
-          .schedule-table table tbody td {
-            padding: 10px 0;
-          }
-          .schedule-table table tbody td.day {
-            font-size: 18px;
-          }
-          .schedule-table table tbody td span {
-            font-size: 15px;
-          }
-        }
-        @media screen and (max-width: 575px) {
-          .schedule-table table tbody td.day {
-            min-width: 115px;
-          }
-        }
-      </style>
+  .card img {
+    width: 700px;
+    height: 400px;
+    align-items: center;
+  }
+  .card p {
+    font-weight: bold; /* Make the year and section text bold */
+  }
+</style>
 </head>
 
 <body>
@@ -231,272 +65,127 @@
             <h1>Time Table</h1>
     
         </div><!-- End Page Title -->
-        <br>
-
-        <form accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" id="infix_form"><input
-                name="_token" type="hidden" value="wKUi5G0RILdRa6jyWzkHBKiKp2HY8CfV7Iz8Egre">
+        <div class="container">
+          <div class="row mt-5">
+            <div class="col-lg-12">
+              <div class="white-box">
                 <div class="row">
-                  <div class="col-lg-4">
-                      <div class="white-box">
-                          <div class="input-effect sm2_mb_20 md_mb_20">
-                            
-                              <select class="niceSelect w-100 bb form-control" name="academic_year" id="academic_year">
-                                  <option data-display="Academic Year *" value="">Select Year</option>
-                                  <option value="2">2nd</option>
-                                  <option value="3">3rd</option>
-                              </select>
-                              <span class="focus-border"></span>
-                          </div>
+                  <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload" class="d-flex w-100">
+                    
+                    <div class="col-lg-4 mb-3">
+                      <div class="input-effect sm2_mb_20 md_mb_20">
+                        <select class="niceSelect w-100 bb form-control" name="year" id="year" style="font-size: 14px;">
+                          <option data-display="Academic Year *" value="">Select Year</option>
+                          <option value="2">2</option>
+                          <option value="3">3 </option>
+                        </select>
+                        <span class="focus-border"></span>
                       </div>
-                  </div>
-              
-                  <div class="col-lg-3" id="sectionStudentDiv">
-                      <div class="white-box">
-                          <select class="niceSelect w-100 bb form-control" id="sectionSelectStudent" name="section">
-                              <option data-display="Section" value="">Section</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                          </select>
-                      </div>
-                  </div>
-              
-                  <div class="col-lg-2">
-                      <div class="white-box">
-                          <button type="submit" class=" btn-primary btn-sm" id="btnsubmit">
-                              <span class="ti-search pr-2"></span>
-                              Search
-                          </button>
-                      </div>
-                  </div>
-              
-                  <div class="col-lg-6">
-                      <div class="white-box">
-                          <label for="inputNumber" class="col-sm-3 col-form-label"> Upload</label>
-                          <div class="col-sm-9"> 
-                              <div class="input-group">
-                                  <input class="form-control" type="file" id="formFile">
-                                  <div class="col-sm-2">
-                                      <button type="submit" class=" btn-primary btn-sm" id="btnupload">
-                                          <span class="ti-search pr-2"></span>
-                                          Upload
-                                      </button>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              
-              
-            
-            
-        </form>
-        <br>
-        <div class="card">
-            <br>
-            <div class="container">
-                
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="schedule-table">
-          
-                      <table class="table bg-black">
-          
-                        <thead>
-                          <tr>
-                            <th>Routine</th>
-                            <th> 10.30 - 11.20 </th>
-                            <th> 11.20 - 12.20 </th>
-                            <th> 12.20 - 1:00 </th>
-                            <th> 1:00 - 1.50   </th>
-                            <th> 1.50 - 2.40   </th>
-                            <th> 2.40 - 3.30   </th>
-                            <th> 3.30 - 4.15   </th>
-                            <th> 4.15 - 5.00   </th>
-                          </tr>
-                        </thead>
-          
-                        <tbody>
-          
-                          <tr>   <!-- Monday -->
-                            <td class="day">Monday</td>
-          
-                            <td class="active">
-                              <p> CSIT - 603 (A) (B)</p>
-                              <p> PG / SG / AG </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 604 (A)</p>
-                              <p> MG </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 601</p>
-                              <p> CB </p>
-                            </td>
-          
-                                            
-                            <td class="active" rowspan="5">
-                              <p> Lunch - Break </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                              <p> Android / CSIT - 606 </p>
-                              <p> AG / YP </p>
-                            </td>
-          
-          
-                            <td class="active">
-                              <p> CSIT - 602 <p>
-                              <p> VK </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> Sports / Library / Meditation </p>
-                            </td>
-          
-                          </tr>
-                          
-                          <tr>   <!-- Tuesday -->
-                            
-                            <td class="day">Tuesday</td>
-          
-                            <td class="active">
-                              <p> CSIT - 604 (A)</p>
-                              <p> MG </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                              <p> SEPM / CSIT - 601 </p>
-                              <p> CB </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                              <p> ML / CSIT - 602 </p>
-                              <p>  VK </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CDC </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 602 </p>
-                              <p>  VK </p>                  
-                            </td>
-          
-                          </tr>  
-                          
-                          <tr>   <!-- Wednesday -->
-                            
-                            <td class="day">Wednesday</td>
-          
-                            <td class="active">
-                              <p> CSIT - 603 (A) (B)</p>
-                              <p> PG / SG / AG </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                              <p> Python / CSIT - 605 / CI - 1 </p>
-                              <p> SHB / SG </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 601</p>
-                              <p> CB </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 604 (A)</p>
-                              <p> MG </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 602 </p>
-                              <p> VK </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CDC </p>
-                            </td>
-          
-                          </tr>  
-                          
-                          <tr>   <!-- Thursday -->
-                            
-                            <td class="day">Thursday</td>
-          
-                            <td class="active">
-                              <p> CSIT - 603 (A) (B)</p>
-                              <p> PG / SG / AG </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                              <p> Android / CSIT - 606 / CI - 1</p>
-                              <p> AG / YP </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 601</p>
-                              <p> CB </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 604 (A)</p>
-                              <p> MG </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                              <p> Python / CSIT - 605</p>
-                              <p> SHB / SG </p>
-                            </td>
-          
-                          </tr>  
-                         
-                          <tr>   <!-- Friday -->
-                            
-                            <td class="day">Friday</td>
-          
-                            <td class="active">
-                              <p> CSIT - 603 (A) (B)</p>
-                              <p> PG / SG / AG </p>
-                            </td>
-          
-                            <td class="active" colspan="2">
-                               <p> MP / CSIT - 608 </p>
-                               <p> GJ / SL </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 601</p>
-                              <p> CB </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CSIT - 602 </p>
-                              <p> VK </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> CDC </p>
-                            </td>
-          
-                            <td class="active">
-                              <p> EOI - lll</p>
-                              <p> CB </p>
-                            </td>
-          
-                          </tr>  
-                         
-                        </tbody>
-                      </table>
                     </div>
-                  </div>
+                    <div class="col-lg-4 mb-3" id="class-div">
+                      <select class="niceSelect w-100 bb form-control" id="section" name="section" style="font-size: 14px;">
+                        <option data-display="Select Class *" value="">Section</option>
+                        <option value="CSIT 1">CSIT 1</option>
+                        <option value="CSIT 2">CSIT 2</option>
+                        <option value="CSIT 3">CSIT 3</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                      <div class="input-effect sm2_mb_20 md_mb_20">
+                        <input class="form-control" type="file" id="formFile" name="image">
+                      </div>
+                    </div>
+                    
+                    <div class="primary-btn-container">
+                      <button type="submit" class="btn btn-primary btn-sm">
+                        Upload
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
-        </div>
+            </div>
+          </div>
+      
+        
+        <script>
+          $(document).ready(function() {
+            $('#btnupload').click(function(event) {
+              event.preventDefault();
+              var fileInput = document.getElementById('formFile');
+              var file = fileInput.files[0];
+              var year = document.getElementById('year').value;
+              var section = document.getElementById('section').value;
+              var formData = new FormData();
+              formData.append('image', file);
+              formData.append('year', year);
+              formData.append('section', section);
+        
+              $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                  alert('Image uploaded successfully');
+                },
+                error: function(err) {
+                  console.error('Error uploading image:', err);
+                  alert('Error uploading image');
+                }
+              });
+            });
+          });
+        </script>
+        
+        <div id="imageContainer" class="card-container"></div>
+        <button class="btn-primary " onclick="retrieveimages()">View Time Tables</button>
+        
+        <script>
+          // Function to retrieve and display images
+          function retrieveimages() {
+            // Fetch images from the /retrivetimetable endpoint
+            fetch('/retrivetimetable')
+              .then(response => response.json())
+              .then(data => {
+                const imageContainer = document.getElementById('imageContainer');
+                // Clear previous images before appending new ones
+                imageContainer.innerHTML = '';
+                // Loop through the array of images
+                data.forEach(item => {
+                  // Create a div element for each image card
+                  const cardDiv = document.createElement('div');
+                  cardDiv.classList.add('card');
+        
+                  // Create a p element for year and section
+                  const infoElement = document.createElement('p');
+                  infoElement.textContent = `Year: ${item.year}, Section: ${item.section}`;
+        
+                  // Create an img element for the image
+                  const imgElement = document.createElement('img');
+                  // Set the src attribute to the base64 representation of the image data
+                  imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+          imgElement.alt = 'Image';
+          // Adjust as needed
+
+        
+        
+                  // Append the info and img elements to the card div
+                  cardDiv.appendChild(infoElement);
+                  cardDiv.appendChild(imgElement);
+        
+                  // Append the card div to the imageContainer
+                  imageContainer.appendChild(cardDiv);
+                });
+              })
+              .catch(error => console.error('Error fetching images:', error));
+          }
+        </script>
+        
+
+       
+       
 
 
 
@@ -515,6 +204,7 @@
  
    <!-- Main JS File -->
    <script src="/js/main.js"></script>
+  
 
 </body>
 

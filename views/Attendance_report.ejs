@@ -42,7 +42,6 @@
   }
   #keywords {
     margin: 0 auto;
-
     margin-bottom: 15px;
   }
 
@@ -100,6 +99,9 @@
     background-color: #f2f2f2;
   }
 
+  .mismatched {
+    background-color: #ffcccc; /* Light red background for mismatched rows */
+  }
 </style>
 <body>
   <!-- ======= Header ======= -->
@@ -198,8 +200,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
- 
-  
     async function searchTotalAttendance() {
       try {
         const selectedYear = $("#searchYear").val();
@@ -217,18 +217,20 @@
         console.error("Error fetching entries:", error.message);
       }
     }
+
     function updateAttendanceTable(entries) {
       const tableBody = $("#TableBody");
-      const tableHeader = $("#tableHeader");
       console.log(entries);
       // Clear existing table data
       tableBody.empty();
-     
-    
+
       // Loop through fetched entries and append rows to the table
       entries[0].forEach((entry, index) => {
+        const isMismatched = entry.CSIT601 !== entry.CSIT602 || entry.CSIT601 !== entry.CSIT603 || entry.CSIT602 !== entry.CSIT603;
+        const rowClass = isMismatched ? 'mismatched' : '';
+        
         const row = `
-          <tr>
+          <tr class="${rowClass}">
             <td id="enrollmentNo">${entry.enrollment}</td>
             <td id="studentName">${entry.name}</td>
             <td id="CSIT601">${entry.CSIT601}</td>
@@ -240,6 +242,9 @@
       });
     }
   </script>
+</body>
+</html>
+
 
 </body>
 

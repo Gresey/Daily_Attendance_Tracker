@@ -1,4 +1,5 @@
-import { db } from '../sqlserver.js';
+import { db } from '../db.js';
+
 export async function handleCardUpdateDetails(req, res) {
     try {
         const today = new Date();
@@ -8,7 +9,7 @@ export async function handleCardUpdateDetails(req, res) {
         let csit601AbsentCount = 0;
         let csit601TotalCount = 0;
 
-        // Fetch all rows for the current date and calculate attendance counts
+        // Fetch attendance counts for CSIT601
         const [rows] = await db.query(`
             SELECT
                 SUM(CASE WHEN CSIT601 = 'P' THEN 1 ELSE 0 END) AS csit601_present_count,
@@ -16,22 +17,27 @@ export async function handleCardUpdateDetails(req, res) {
                 COUNT(*) AS csit601_total_count
             FROM student_attendance
             WHERE DATE(date) = ?
-            
-            `, [currentDate]);
-            const [attendanceRows] = await db.query(`
-            SELECT CSIT601, CSIT602, CSIT603
+        `, [currentDate]);
+
+        // Fetch all rows for the current date to check for mismatched attendance
+        const [attendanceRows] = await db.query(`
+            SELECT id, name, CSIT601, CSIT602, CSIT603
             FROM student_attendance
             WHERE DATE(date) = ?
         `, [currentDate]);
 
-        // Calculate the bunk count by comparing CSIT601, CSIT602, and CSIT603 for each row
-        attendanceRows.forEach(row => {
-            if (row.CSIT601 != row.CSIT602 || row.CSIT601 != row.CSIT603 || row.CSIT602 != row.CSIT603) {
+        const mismatchedRows = attendanceRows.map(row => {
+            const isMismatched = row.CSIT601 !== row.CSIT602 || row.CSIT601 !== row.CSIT603 || row.CSIT602 !== row.CSIT603;
+            if (isMismatched) {
                 bunkCount++;
             }
+            return {
+                ...row,
+                isMismatched
+            };
         });
 
-        // Extract counts from the resultx
+        // Extract counts from the result
         if (rows.length > 0) {
             csit601PresentCount = rows[0].csit601_present_count;
             csit601AbsentCount = rows[0].csit601_absent_count;
@@ -44,12 +50,13 @@ export async function handleCardUpdateDetails(req, res) {
         console.log('Attendance count for CSIT-1 (Absent):', csit601AbsentCount);
         console.log('Total Attendance count for CSIT-1:', csit601TotalCount);
 
-        // Pass the counts to the dashboard template
+        // Pass the counts and mismatched rows to the dashboard template
         res.render('dashboard', {
             bunk: bunkCount,
             presentcount: csit601PresentCount,
             absentcount: csit601AbsentCount,
-            totalcount: csit601TotalCount
+            totalcount: csit601TotalCount,
+            mismatchedRows
         });
     } catch (error) {
         // Log any errors that occur during the execution of the function

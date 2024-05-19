@@ -1,5 +1,5 @@
 import express from 'express';
-import { db } from '../sqlserver.js';
+import { db } from '../db.js';
 import { hashPassword, checkPassword, generateToken } from '../service/auth.js';
 
 const router = express.Router();
@@ -35,9 +35,9 @@ router.post('/signin', async (req, res) => {
       return res.status(401).send({ message: 'Invalid credentials' });
     }
 
-    const token = generateToken(user);
+    const token = generateToken({ id: user.id, email: user.email, name: user.username });
     res.cookie('token', token, { httpOnly: true });
-    res.send({ token });
+    res.send({ token, name: user.username }); // Return user's name in response
   } catch (error) {
     res.status(500).send({ message: 'Error logging in' });
   }
