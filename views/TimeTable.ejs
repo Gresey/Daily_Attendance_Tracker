@@ -2,54 +2,53 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Components DAT</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+  <title>Components DAT</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
- <!--CSS Files -->
- <link href="/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
- <link href="/bootstrap/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
- <link href="/bootstrap/boxicons/css/boxicons.min.css" rel="stylesheet">
-
-
- <!-- Main CSS File -->
- <link href="/css/style.css" rel="stylesheet">
- <style>
-   .input-group {
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bootstrap/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/bootstrap/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+  <style>
+    .input-group {
       display: flex;
       align-items: center;
     }
+
     .input-group label {
       margin-right: 10px;
     }
-  .card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    width: 750px;
-    height: 520px; /* Set a smaller card width */
-    text-align: center;
-  }
- 
 
-  .card img {
-    width: 700px;
-    height: 400px;
-    align-items: center;
-  }
-  .card p {
-    font-weight: bold; /* Make the year and section text bold */
-  }
-</style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      width: 750px;
+      height: 520px;
+      
+      text-align: center;
+    }
+
+    .card img {
+      width: 700px;
+      height: 400px;
+      align-items: center;
+    }
+
+    .card p {
+      font-weight: bold;
+      
+    }
+  </style>
 </head>
 
 <body>
@@ -58,154 +57,204 @@
   <!--======= SideBar =======-->
   <%- include("templates/sidebar.ejs") %>
 
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Time Table</h1>
+    </div><!-- End Page Title -->
 
-    <main id="main" class="main">
+    <% if (userRole == 'Coordinator' || userRole == 'Personal Assistant') { %>
+    <button id="btn-upload-class" class="btn btn-primary">Upload Class Timetable</button>
+    <% } %>
+    <% if (userRole == 'Personal Assistant') { %>
+    <button id="btn-upload-faculty" class="btn btn-primary">Upload Faculty Timetable</button>
+    <% } %>
 
-        <div class="pagetitle">
-            <h1>Time Table</h1>
-    
-        </div><!-- End Page Title -->
-        <div class="container">
-          <div class="row mt-5">
-            <div class="col-lg-12">
-              <div class="white-box">
-                <div class="row">
-                  <form id="uploadForm" enctype="multipart/form-data" method="post" action="/upload" class="d-flex w-100">
-                    
-                    <div class="col-lg-4 mb-3">
-                      <div class="input-effect sm2_mb_20 md_mb_20">
-                        <select class="niceSelect w-100 bb form-control" name="year" id="year" style="font-size: 14px;">
-                          <option data-display="Academic Year *" value="">Select Year</option>
-                          <option value="2">2</option>
-                          <option value="3">3 </option>
-                        </select>
-                        <span class="focus-border"></span>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 mb-3" id="class-div">
-                      <select class="niceSelect w-100 bb form-control" id="section" name="section" style="font-size: 14px;">
-                        <option data-display="Select Class *" value="">Section</option>
-                        <option value="CSIT 1">CSIT 1</option>
-                        <option value="CSIT 2">CSIT 2</option>
-                        <option value="CSIT 3">CSIT 3</option>
-                      </select>
-                    </div>
-                    <div class="col-lg-3 mb-3">
-                      <div class="input-effect sm2_mb_20 md_mb_20">
-                        <input class="form-control" type="file" id="formFile" name="image">
-                      </div>
-                    </div>
-                    
-                    <div class="primary-btn-container">
-                      <button type="submit" class="btn btn-primary btn-sm">
-                        Upload
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="white-box">
+            <div id="form-container" class="row"></div>
           </div>
-      
-        
-        <script>
-          $(document).ready(function() {
-            $('#btnupload').click(function(event) {
-              event.preventDefault();
-              var fileInput = document.getElementById('formFile');
-              var file = fileInput.files[0];
-              var year = document.getElementById('year').value;
-              var section = document.getElementById('section').value;
-              var formData = new FormData();
-              formData.append('image', file);
-              formData.append('year', year);
-              formData.append('section', section);
-        
-              $.ajax({
-                url: '/upload',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                  alert('Image uploaded successfully');
-                },
-                error: function(err) {
-                  console.error('Error uploading image:', err);
-                  alert('Error uploading image');
-                }
-              });
-            });
-          });
-        </script>
-        
-        <div id="imageContainer" class="card-container"></div>
-        <button class="btn-primary " onclick="retrieveimages()">View Time Tables</button>
-        
-        <script>
-          // Function to retrieve and display images
-          function retrieveimages() {
-            // Fetch images from the /retrivetimetable endpoint
-            fetch('/retrivetimetable')
-              .then(response => response.json())
-              .then(data => {
-                const imageContainer = document.getElementById('imageContainer');
-                // Clear previous images before appending new ones
-                imageContainer.innerHTML = '';
-                // Loop through the array of images
-                data.forEach(item => {
-                  // Create a div element for each image card
-                  const cardDiv = document.createElement('div');
-                  cardDiv.classList.add('card');
-        
-                  // Create a p element for year and section
-                  const infoElement = document.createElement('p');
-                  infoElement.textContent = `Year: ${item.year}, Section: ${item.section}`;
-        
-                  // Create an img element for the image
-                  const imgElement = document.createElement('img');
-                  // Set the src attribute to the base64 representation of the image data
-                  imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
-          imgElement.alt = 'Image';
-          // Adjust as needed
+        </div>
+      </div>
+    </div>
 
-        
-        
-                  // Append the info and img elements to the card div
-                  cardDiv.appendChild(infoElement);
-                  cardDiv.appendChild(imgElement);
-        
-                  // Append the card div to the imageContainer
-                  imageContainer.appendChild(cardDiv);
-                });
-              })
-              .catch(error => console.error('Error fetching images:', error));
+    <div id="imageContainer" class="card-container mt-5"></div>
+    <button class="btn btn-primary" onclick="retrieveimages()">View Class Time Tables</button>
+    <% if (userRole == 'Personal Assistant') { %>
+      <button class="btn btn-primary" onclick="retrivefacultytimetable()">View Faculty Time Tables</button>
+      <% } %>
+    
+  </main><!-- End #main -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      retrievefacultytt();
+
+      $('#btn-upload-faculty').click(function () {
+        $('#form-container').html(`
+          <form id="facultyUploadForm" enctype="multipart/form-data" method="post" action="/upload-faculty" class="d-flex w-100">
+            <div class="col-lg-3 mb-3">
+              <select class="niceSelect w-100 bb form-control" id="facultyname" name="facultyname" style="font-size: 14px;">
+                <option data-display="Select Faculty *" value="">Select Faculty</option>
+                <option value="Garima Joshi">Garima Joshi</option>
+                <option value="Vandana Kate">Vandana Kate</option>
+                <option value="Shruti Lashkari">Shruti Lashkari</option>
+              </select>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <input class="form-control" type="file" id="facultyFile" name="image" required>
+            </div>
+            <div class="col-lg-4 mb-3">
+              <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </div>
+          </form>
+        `);
+      });
+
+      $('#btn-upload-class').click(function () {
+        $('#form-container').html(`
+          <form id="classUploadForm" enctype="multipart/form-data" method="post" action="/upload-class" class="d-flex w-100">
+            <div class="col-lg-3 mb-3">
+              <select class="niceSelect w-100 bb form-control" name="year" id="year" style="font-size: 14px;">
+                <option data-display="Academic Year *" value="">Select Year</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <select class="niceSelect w-100 bb form-control" id="section" name="section" style="font-size: 14px;">
+                <option data-display="Select Class *" value="">Section</option>
+                <option value="CSIT 1">CSIT 1</option>
+                <option value="CSIT 2">CSIT 2</option>
+                <option value="CSIT 3">CSIT 3</option>
+              </select>
+            </div>
+            
+            <div class="col-lg-4 mb-3">
+              <input class="form-control" type="file" id="classFile" name="image" required>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </div>
+          </form>
+        `);
+      });
+
+      $('#form-container').on('submit', '#facultyUploadForm', function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+          url: '/upload-faculty',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            alert('Faculty timetable uploaded successfully');
+          },
+          error: function (err) {
+            console.error('Error uploading faculty timetable:', err);
+            alert('Error uploading faculty timetable');
           }
-        </script>
+        });
+      });
+
+      $('#form-container').on('submit', '#classUploadForm', function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+          url: '/upload-class',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            alert('Class timetable uploaded successfully');
+          },
+          error: function (err) {
+            console.error('Error uploading class timetable:', err);
+            alert('Error uploading class timetable');
+          }
+        });
+      });
+    });
+
+    function retrieveimages() {
+      const imageContainer = document.getElementById('imageContainer');
+      imageContainer.innerHTML = ''; 
+
+      // Fetching class timetable and faculty timetable images in parallel
+      
+        fetch('/retrivetimetable').then(response => response.json())
+    
+    
+        .then(classData => {
+          
+          classData.forEach(item => {
+            const cardDiv = document.createElement('div');
+            cardDiv.classList.add('card');
+            const infoElement = document.createElement('p');
+            infoElement.textContent = `Year: ${item.year}, Section: ${item.section}`;
+            const imgElement = document.createElement('img');
+            imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+            imgElement.alt = 'Image';
+            cardDiv.appendChild(infoElement);
+            cardDiv.appendChild(imgElement);
+            imageContainer.appendChild(cardDiv);
+          });
+
         
+          
+        })
+        .catch(error => console.error('Error fetching images:', error));
+    }
+    function retrivefacultytimetable(){
+      const imageContainer = document.getElementById('imageContainer');
+      imageContainer.innerHTML = ''; 
+      fetch('/retrivefacultytimetable').then(response => response.json())
+        .then(facultyData => {
+          facultyData.forEach(item => {
+            const cardDiv = document.createElement('div');
+            cardDiv.classList.add('card');
+            const infoElement = document.createElement('p');
+            infoElement.textContent = `Faculty: ${item.facultyname}`;
+            const imgElement = document.createElement('img');
+            imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+            imgElement.alt = 'Image';
+            cardDiv.appendChild(infoElement);
+            cardDiv.appendChild(imgElement);
+            imageContainer.appendChild(cardDiv);
+          });
+        })
+        .catch(error => console.error('Error fetching images:', error));
+    
+    }
+     function retrievefacultytt(){
+      const imageContainer = document.getElementById('imageContainer');
+      imageContainer.innerHTML = ''; 
+        fetch("/retrievefacultytt").then(response=>response.json())
+        .then(timetable=>{
 
-       
-       
+          const cardDiv=document.createElement('div');
+          cardDiv.classList.add('card');
+          const imgElement=document.createElement('img');
+          imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+            imgElement.alt = 'Image';
+            
+            cardDiv.appendChild(imgElement);
+            imageContainer.appendChild(cardDiv);
+        })
+        .catch(error=>console.error('Error fetching faculty time table images:',error));
+      
+     }
+</script>
 
-
-
-    </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-   <!-- JS Files -->
-   <script src="/bootstrap/apexcharts/apexcharts.min.js"></script>
-   <script src="/bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
-   <script src="/bootstrap/chart.js/chart.umd.js"></script>
- 
-   <!-- Main JS File -->
-   <script src="/js/main.js"></script>
-  
-
+  <script src="/bootstrap/apexcharts/apexcharts.min.js"></script>
+  <script src="/bootstrap/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/bootstrap/chart.js/chart.umd.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 
 </html>
+

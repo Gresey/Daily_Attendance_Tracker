@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import { handleCardUpdateDetails } from '../controllers/cardupdate.js';
-
+import { restrictToLoggedinUserOnly } from '../middleware/auth.js';
 
 
 // Define GET endpoints
@@ -18,7 +18,7 @@ router.get("/contact", (req, res) => {
 });
 
 
-router.get('/dashboard',handleCardUpdateDetails);
+//router.get('/dashboard',handleCardUpdateDetails);
 
 
 router.get("/ADDSTUDENT", (req, res) => {
@@ -37,8 +37,11 @@ router.get("/take_attendance", (req, res) => {
   res.render("take_attendance.ejs");
 });
 
-router.get("/TimeTable", (req, res) => {
-  res.render("TimeTable.ejs");
+router.get('/TimeTable', restrictToLoggedinUserOnly, (req, res) => {
+  const userRole = req.user.role;
+  const userName = req.user.name;
+  console.log(userRole,userName);
+  res.render('TimeTable', { userRole,userName });
 });
 
 router.get("/users-profile", (req, res) => {

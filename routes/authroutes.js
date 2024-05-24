@@ -35,9 +35,9 @@ router.post('/signin', async (req, res) => {
       return res.status(401).send({ message: 'Invalid credentials' });
     }
 
-    const token = generateToken({ id: user.id, email: user.email, name: user.username });
+    const token = generateToken({ id: user.id, email: user.email, name: user.username, role: user.role });
     res.cookie('token', token, { httpOnly: true });
-    res.send({ token, name: user.username }); // Return user's name in response
+    res.send({ token, name: user.username,role: user.role }); 
   } catch (error) {
     res.status(500).send({ message: 'Error logging in' });
   }

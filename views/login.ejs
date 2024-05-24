@@ -405,8 +405,8 @@ body {
                             <select class="bx bxs-user" name="sign_up_as" id="sign-up-as">
                                 <option value="none" selected disabled hidden> Sign up as </option> 
                                 <option value="HOD"> Head of Department </option>
-                                <option value="Coordinator"> Coordinator </option>
-                                <option value="Personal Assistance"> Personal Assistance </option>
+                                <option name="Coordinator" value="Coordinator">Coordinator</option>
+                                <option name="Personal Assistant" value="Personal Assistant">Personal Assistant</option>
                                 <option value="Faculty"> Faculty </option>
 
                             </select>
@@ -620,7 +620,10 @@ function testSignup() {
             const email = document.getElementById('emailofuser').value;
             const password = document.getElementById('userpassword').value;
             const confirmPassword = document.getElementById('confirmpass').value;
-            const role = document.getElementById('sign-up-as').value;
+            //const role = document.getElementById('sign-up-as').value;
+            const signUpAsSelect = document.getElementById('sign-up-as');
+            const role = signUpAsSelect.options[signUpAsSelect.selectedIndex].value;
+
 
             if (password !== confirmPassword) {
                 alert('Passwords do not match!');

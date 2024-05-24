@@ -12,7 +12,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import authRoutes from './routes/authroutes.js'; 
-import { restrictToLoggedinUserOnly } from './middleware/auth.js';
+import { restrictToLoggedinUserOnly , restrictTo} from './middleware/auth.js';
 import multer from 'multer';
 import { db } from './db.js';
 
@@ -49,6 +49,7 @@ const studentData=readFileSync(join(__dirname,'tables','studentdata.sql'),'utf8'
 const student_attendance=readFileSync(join(__dirname,'tables','attendance.sql'),'utf8');
 const user=readFileSync(join(__dirname,'tables','user.sql'),'utf8');
 const timetable=readFileSync(join(__dirname,'tables','timetable.sql'),'utf8');
+const facultytimetable=readFileSync(join(__dirname,'tables','facultytimetable.sql'),'utf8');
 async function createTables(){
   try{
     await db.query(user);
@@ -58,8 +59,9 @@ async function createTables(){
     await db.query(student_attendance);
     console.log('Attendance table created');
     await db.query(timetable);
-    console.log('Timetable table created');
-
+    console.log('Class Timetable table created');
+    await db.query(facultytimetable);
+    console.log('Faculty Timetable table created');
   }
   catch(err){
     console.error('Error creating tables:',err);
@@ -85,7 +87,7 @@ app.use('/searchEntries',searchEntries);
 app.use('/attendance',AttendanceRoutes);
 app.use('/weeklyattendance',weeklyattendance);
 
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/upload-class',restrictToLoggedinUserOnly, restrictTo(['Coordinator','Personal Assistant']),upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
@@ -95,7 +97,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const file = req.file;
     const image = file.buffer;
 
-    // Insert the image, year, and section into the database
+
     await db.query(
       'INSERT INTO images (image, year, section) VALUES (?, ?, ?)',
       [image, year, section]
@@ -107,6 +109,22 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     res.status(500).send('An error occurred while uploading the file.');
   }
 });
+app.post('/upload-faculty',restrictToLoggedinUserOnly, restrictTo(['Personal Assistant']),upload.single('image'),async (req,res)=>{
+  try {
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
+  const {facultyname}=req.body;
+  const file = req.file;
+  const image = file.buffer;
+  await db.query('INSERT INTO facultytimetable (image,facultyname) VALUES (?, ?)',
+  [image, facultyname]);
+  res.status(200).send('File uploaded and saved to database.');
+} catch (error) {
+  console.error(error);
+  res.status(500).send('An error occurred while uploading the file.');
+}
+});
 app.get('/retrivetimetable', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT image, year, section FROM images');
@@ -116,8 +134,26 @@ app.get('/retrivetimetable', async (req, res) => {
     res.status(500).send('An error occurred while fetching images.');
   }
 });
+app.get('/retrivefacultytimetable',async (req,res)=>{
+  try{
+const [rows]=await db.query('SELECT image,facultyname FROM facultytimetable');
+res.json(rows);
+  }catch(error){
+    console.error(error);
+    res.status(500).send('An error occurred while fetching timetables.');
+  }
+});
 
-
+app.get("retrieveparticularfacultytt",async(res,req)=>{
+try{
+    const {facultyname}=req.user.name;
+    const timetable=await db.query('SELECT image from facultytimetable where facultyname=?',[facultyname]);
+    req.json(timetable);
+}catch(error){
+  console.error(error);
+  res.status(500).send('An error occurred while fetching timetables.');
+}
+});
 //card update at dashboard
 app.get('/fetchAttendanceData', async (req, res) => {
   try {
