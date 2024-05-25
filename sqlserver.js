@@ -71,14 +71,22 @@ createTables();
 
  
 
-app.use('/dashboard', restrictToLoggedinUserOnly,dashboard);
-//app.use('/dashboard',dashboard);
-app.use('/',pageRenderRoutes);
 
-// Endpoint to handle add student form submissions
-app.use('/submitForm',StudentData);
+
+
 
 app.use('/auth',authRoutes);
+app.use(restrictToLoggedinUserOnly,(req, res, next) => {
+  // Assuming req.user contains the user information
+  res.locals.userRole = req.user.role;
+  res.locals.name = req.user.name;
+  next();
+});
+// Endpoint to handle add student form submissions
+app.use('/submitForm',StudentData);
+app.use('/dashboard', restrictToLoggedinUserOnly,dashboard);
+
+app.use('/',pageRenderRoutes);
 
 // Endpoint to handle searchEntries
 app.use('/searchEntries',searchEntries);
@@ -144,15 +152,20 @@ res.json(rows);
   }
 });
 
-app.get("retrieveparticularfacultytt",async(res,req)=>{
-try{
-    const {facultyname}=req.user.name;
-    const timetable=await db.query('SELECT image from facultytimetable where facultyname=?',[facultyname]);
-    req.json(timetable);
-}catch(error){
-  console.error(error);
-  res.status(500).send('An error occurred while fetching timetables.');
-}
+app.get('/retrieveparticularfacultytt', restrictToLoggedinUserOnly, async (req, res) => {
+  try {
+    const facultyname = req.user.name; // Get the user's name from the token payload
+    const [timetable] = await db.query('SELECT image FROM facultytimetable WHERE facultyname = ?', [facultyname]);
+
+    if (timetable.length === 0) {
+      return res.status(404).send('No timetable found for this faculty.');
+    }
+
+    res.json(timetable);
+  } catch (error) {
+    console.error('Error fetching timetable:', error);
+    res.status(500).send('An error occurred while fetching timetables.');
+  }
 });
 //card update at dashboard
 app.get('/fetchAttendanceData', async (req, res) => {

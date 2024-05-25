@@ -33,19 +33,19 @@ router.get("/StudentList", (req, res) => {
   res.render("StudentList.ejs");
 });
 
-router.get("/take_attendance", (req, res) => {
+router.get("/take_attendance",(req, res) => {
+  
   res.render("take_attendance.ejs");
 });
 
-router.get('/TimeTable', restrictToLoggedinUserOnly, (req, res) => {
-  const userRole = req.user.role;
-  const userName = req.user.name;
-  console.log(userRole,userName);
-  res.render('TimeTable', { userRole,userName });
+router.get('/TimeTable', (req, res) => {
+  
+  res.render('TimeTable' );
 });
 
-router.get("/users-profile", (req, res) => {
-  res.render("users-profile.ejs");
+router.get('/users-profile', (req, res) => {
+  
+  res.render('users-profile.ejs');
 });
 
 router.get("/Attendancereport", (req, res) => {

@@ -27,20 +27,27 @@
     .input-group label {
       margin-right: 10px;
     }
+ 
+
+
+  .info-text {
+    font-style: italic;
+    margin-bottom: 20px;
+  }
 
     .card {
       border: 1px solid #ccc;
       padding: 10px;
       border-radius: 5px;
       width: 750px;
-      height: 520px;
+      height: 600px;
       
       text-align: center;
     }
 
     .card img {
       width: 700px;
-      height: 400px;
+      height: 520px;
       align-items: center;
     }
 
@@ -61,45 +68,60 @@
     <div class="pagetitle">
       <h1>Time Table</h1>
     </div><!-- End Page Title -->
-
-    <% if (userRole == 'Coordinator' || userRole == 'Personal Assistant') { %>
-    <button id="btn-upload-class" class="btn btn-primary">Upload Class Timetable</button>
-    <% } %>
-    <% if (userRole == 'Personal Assistant') { %>
-    <button id="btn-upload-faculty" class="btn btn-primary">Upload Faculty Timetable</button>
-    <% } %>
+    <div>
+      <% if (userRole == 'Coordinator' || userRole == 'Faculty' || userRole == 'HOD') { %>
+        <button class="btn  btn-link me-3 mb-3" onclick="retrieveparticularfacultytt()">Your Time Table</button>
+        <% } %>
+      <% if (userRole == 'Coordinator' || userRole == 'Personal Assistant') { %>
+      <button id="btn-upload-class" class="btn btn-primary btn-sm me-3 mb-3">Upload Class Timetable</button>
+      <% } %>
+      <% if (userRole == 'Personal Assistant') { %>
+      <button id="btn-upload-faculty" class="btn btn-primary btn-sm me-3 mb-3">Upload Faculty Timetable</button>
+      <% } %>
+      <button class="btn btn-primary btn-sm me-3 mb-3" onclick="retrieveimages()">View Class Time Tables</button>
+      <% if (userRole == 'Personal Assistant' || userRole == 'HOD') { %>
+        <button class="btn btn-primary btn-sm me-3 mb-3" onclick="retrievefacultytimetable()">View Faculty Time Tables</button>
+        <% } %>
+    </div>
+   
 
     <div class="container mt-5">
       <div class="row">
         <div class="col-lg-12">
-          <div class="white-box">
+          <div class="">
             <div id="form-container" class="row"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="imageContainer" class="card-container mt-5"></div>
-    <button class="btn btn-primary" onclick="retrieveimages()">View Class Time Tables</button>
+   
+   
+   
+    
     <% if (userRole == 'Personal Assistant') { %>
-      <button class="btn btn-primary" onclick="retrivefacultytimetable()">View Faculty Time Tables</button>
+      <button class="btn btn-primary small" onclick="retrievefacultytimetable()">View Faculty Time Tables</button>
       <% } %>
+      <div id="imageContainer" class="card-container mt-5"></div>
     
   </main><!-- End #main -->
+  <script>
+    const userName = "<%= name %>";
+  </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function () {
-      retrievefacultytt();
+      retrieveparticularfacultytt();
 
       $('#btn-upload-faculty').click(function () {
         $('#form-container').html(`
-          <form id="facultyUploadForm" enctype="multipart/form-data" method="post" action="/upload-faculty" class="d-flex w-100">
+          <form id="facultyUploadForm" enctype="multipart/form-data" method="post" action="/upload-faculty" class="d-flex w-100 white-box">
             <div class="col-lg-3 mb-3">
               <select class="niceSelect w-100 bb form-control" id="facultyname" name="facultyname" style="font-size: 14px;">
                 <option data-display="Select Faculty *" value="">Select Faculty</option>
-                <option value="Garima Joshi">Garima Joshi</option>
-                <option value="Vandana Kate">Vandana Kate</option>
-                <option value="Shruti Lashkari">Shruti Lashkari</option>
+                <option value="Garima Joshi">Prof.Garima Joshi</option>
+                <option value="Vandana Kate">Prof.Vandana Kate</option>
+                <option value="Shruti Lashkari">Prof.Shruti Lashkari</option>
               </select>
             </div>
             <div class="col-lg-4 mb-3">
@@ -114,7 +136,7 @@
 
       $('#btn-upload-class').click(function () {
         $('#form-container').html(`
-          <form id="classUploadForm" enctype="multipart/form-data" method="post" action="/upload-class" class="d-flex w-100">
+          <form id="classUploadForm" enctype="multipart/form-data" method="post" action="/upload-class" class="d-flex w-100 white-box">
             <div class="col-lg-3 mb-3">
               <select class="niceSelect w-100 bb form-control" name="year" id="year" style="font-size: 14px;">
                 <option data-display="Academic Year *" value="">Select Year</option>
@@ -209,7 +231,7 @@
         })
         .catch(error => console.error('Error fetching images:', error));
     }
-    function retrivefacultytimetable(){
+    function retrievefacultytimetable(){
       const imageContainer = document.getElementById('imageContainer');
       imageContainer.innerHTML = ''; 
       fetch('/retrivefacultytimetable').then(response => response.json())
@@ -230,24 +252,34 @@
         .catch(error => console.error('Error fetching images:', error));
     
     }
-     function retrievefacultytt(){
-      const imageContainer = document.getElementById('imageContainer');
-      imageContainer.innerHTML = ''; 
-        fetch("/retrievefacultytt").then(response=>response.json())
-        .then(timetable=>{
+    function retrieveparticularfacultytt() {
+  const imageContainer = document.getElementById('imageContainer');
+  imageContainer.innerHTML = ''; 
 
-          const cardDiv=document.createElement('div');
-          cardDiv.classList.add('card');
-          const imgElement=document.createElement('img');
-          imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
-            imgElement.alt = 'Image';
-            
-            cardDiv.appendChild(imgElement);
-            imageContainer.appendChild(cardDiv);
-        })
-        .catch(error=>console.error('Error fetching faculty time table images:',error));
-      
-     }
+  fetch('/retrieveparticularfacultytt')
+    .then(response => response.json())
+    .then(timetable => {
+      timetable.forEach(item => {
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('card');
+
+        const infoElement = document.createElement('p');
+        infoElement.textContent = `Hello Prof. ${userName}, this is your today's timetable`;
+        infoElement.classList.add('info-text'); 
+
+        const imgElement = document.createElement('img');
+        imgElement.src = `data:image/jpeg;base64,${btoa(new Uint8Array(item.image.data).reduce((data, byte) => data + String.fromCharCode(byte), ''))}`;
+        imgElement.alt = 'Image';
+        imgElement.classList.add('timetable-image');
+
+        cardDiv.appendChild(infoElement); 
+        cardDiv.appendChild(imgElement);
+        imageContainer.appendChild(cardDiv);
+      });
+    })
+    .catch(error => console.error('Error fetching faculty timetable images:', error));
+}
+
 </script>
 
   <script src="/bootstrap/apexcharts/apexcharts.min.js"></script>

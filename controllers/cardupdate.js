@@ -49,6 +49,8 @@ export async function handleCardUpdateDetails(req, res) {
         console.log('Attendance count for CSIT-1 (Present):', csit601PresentCount);
         console.log('Attendance count for CSIT-1 (Absent):', csit601AbsentCount);
         console.log('Total Attendance count for CSIT-1:', csit601TotalCount);
+        const userRole=req.user.role;
+        const name=req.user.name;
 
         // Pass the counts and mismatched rows to the dashboard template
         res.render('dashboard', {
@@ -56,7 +58,9 @@ export async function handleCardUpdateDetails(req, res) {
             presentcount: csit601PresentCount,
             absentcount: csit601AbsentCount,
             totalcount: csit601TotalCount,
-            mismatchedRows
+            mismatchedRows,
+            userRole,
+            name
         });
     } catch (error) {
         // Log any errors that occur during the execution of the function

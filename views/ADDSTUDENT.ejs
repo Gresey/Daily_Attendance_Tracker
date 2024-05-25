@@ -136,6 +136,34 @@
   <!--  Main JS File -->
   <script src="/LandingPage_assetss/js/main.js"></script>
   <script src="/js/main.js"></script>
+  <script>
+    document.getElementById('AddStudentForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+  
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+  
+      try {
+        const response = await fetch('/submitForm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Unknown error occurred');
+        }
+  
+        alert('Student entry added successfully!');
+        this.reset();
+      } catch (error) {
+        alert(`Error adding entry: ${error.message}`);
+      }
+    });
+  </script>
   
 
 </body>
