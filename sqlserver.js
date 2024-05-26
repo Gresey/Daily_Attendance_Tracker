@@ -67,20 +67,23 @@ async function createTables() {
 
 createTables();
 
-
 app.use('/auth', authRoutes);
+
+// Middleware to set user role and name in locals for views
 app.use(restrictToLoggedinUserOnly,(req, res, next) => {
-  
-  res.locals.userRole = req.user.role;
-  res.locals.name = req.user.name;
-  next();
+ 
+      res.locals.userRole = user.role;
+      res.locals.name = user.username;
+      next();
+   
 });
-app.use('/submitForm', StudentData);
+
 app.use('/dashboard',restrictToLoggedinUserOnly, dashboard);
-app.use('/', pageRenderRoutes);
-app.use('/searchEntries', searchEntries);
-app.use('/attendance', AttendanceRoutes);
-app.use('/weeklyattendance', weeklyattendance);
+app.use('/', restrictToLoggedinUserOnly,pageRenderRoutes);
+app.use('/submitForm', restrictToLoggedinUserOnly, StudentData);
+app.use('/searchEntries', restrictToLoggedinUserOnly, searchEntries);
+app.use('/attendance', restrictToLoggedinUserOnly, AttendanceRoutes);
+app.use('/weeklyattendance', restrictToLoggedinUserOnly, weeklyattendance);
 
 app.post('/upload-class', restrictTo(['Coordinator', 'Personal Assistant']), upload.single('image'), async (req, res) => {
   try {
@@ -137,7 +140,7 @@ app.get('/retrivefacultytimetable', async (req, res) => {
   }
 });
 
-app.get('/retrieveparticularfacultytt', async (req, res) => {
+app.get('/retrieveparticularfacultytt', restrictToLoggedinUserOnly, async (req, res) => {
   try {
     const facultyname = req.user.name;
     const [timetable] = await db.query('SELECT image FROM facultytimetable WHERE facultyname = ?', [facultyname]);
@@ -199,22 +202,59 @@ app.get('/fetchAttendanceData', async (req, res) => {
   }
 });
 
-app.get('/api/userinfo', (req, res) => {
-  if (req.session.userId) {
-    const userId = req.session.userId;
+app.get('/fetch', async (req, res) => {
+  try {
+    const { year, section, date } = req.query;
 
-    db.query('SELECT username, role FROM users WHERE id = ?', [userId], (err, results) => {
-      if (err) {
-        return res.status(500).json({ error: 'Database query failed' });
+    const [rows] = await db.query(`
+      SELECT
+        enrollment,
+        name,
+        CSIT601,
+        CSIT602,
+        CSIT603
+      FROM student_attendance
+      WHERE year = ? AND section = ? AND DATE(date) = ?
+    `, [year, section, date]);
+
+    const bunkedBySubject = {
+      CSIT601: new Set(),
+      CSIT602: new Set(),
+      CSIT603: new Set()
+    };
+
+    rows.forEach(entry => {
+      // Conditions for CSIT601
+      if (entry.CSIT601 == 'A' && (entry.CSIT602 == 'P' || entry.CSIT603 == 'P')) {
+        if (!bunkedBySubject.CSIT601.has(entry.name)) {
+          bunkedBySubject.CSIT601.add(entry.name);
+        }
       }
-      if (results.length > 0) {
-        res.json(results[0]);
-      } else {
-        res.status(404).json({ error: 'User not found' });
+
+      // Conditions for CSIT602
+      if (entry.CSIT602 == 'A' && (entry.CSIT601 == 'P' || entry.CSIT603 == 'P')) {
+        if (!bunkedBySubject.CSIT602.has(entry.name)) {
+          bunkedBySubject.CSIT602.add(entry.name);
+        }
+      }
+
+      // Conditions for CSIT603
+      if (entry.CSIT603 == 'A' && (entry.CSIT602 == 'P' || entry.CSIT601 == 'P')) {
+        if (!bunkedBySubject.CSIT603.has(entry.name)) {
+          bunkedBySubject.CSIT603.add(entry.name);
+        }
       }
     });
-  } else {
-    res.status(401).json({ error: 'User not logged in' });
+
+    // Convert sets to arrays before sending response
+    for (const subject in bunkedBySubject) {
+      bunkedBySubject[subject] = Array.from(bunkedBySubject[subject]);
+    }
+
+    res.json({ bunkedBySubject });
+  } catch (error) {
+    console.error('Error fetching bunked students:', error);
+    res.status(500).send('Error fetching bunked students');
   }
 });
 

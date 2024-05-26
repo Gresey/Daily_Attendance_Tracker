@@ -29,15 +29,15 @@ export function restrictToLoggedinUserOnly(req, res, next) {
   }
 }
 
-  export function restrictTo(roles) {
-    return (req, res, next) => {
-      if (!req.user) {
-        return res.status(401).send({ message: 'Unauthorized: No user logged in' });
-      }
-  
-      if (!roles.includes(req.user.role)) {
-        return res.status(403).send({ message: 'Forbidden: Access is denied' });
-      }
-      next();
-    };
-  }
+export function restrictTo(roles) {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).render('errorpage', { message: 'Unauthorized: No user logged in' });
+    }
+
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).render('errorpage', { message: 'Forbidden: Access is denied' });
+    }
+    next();
+  };
+}

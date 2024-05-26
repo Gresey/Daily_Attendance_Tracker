@@ -102,6 +102,7 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
+      <div id="bunkedContainer"></div>
 
       <!--Attendance cards-->
       
@@ -435,36 +436,46 @@
    <!-- Template Main JS File -->
    <script src="/js/main.js"></script>
    <script>
- async function retrieveAttendanceData() {
-  try {
-    const response = await fetch(`/fetchAttendanceData`);
-    const data = await response.json();
-    const cardContainer = document.getElementById('cardContainer');
-    cardContainer.innerHTML = '';
+    async function retrieveAttendanceData() {
+      try {
+        const response = await fetch(`/fetchAttendanceData`);
+        const data = await response.json();
+        const cardContainer = document.getElementById('cardContainer');
+        cardContainer.innerHTML = '';
 
-    const colors = ['bg-m-dblue', 'bg-m-gray', 'bg-m-orange'];
+        const colors = ['bg-m-dblue', 'bg-m-gray', 'bg-m-orange'];
 
-    data.forEach((item, index) => {
-      const cardDiv = document.createElement('div');
-      cardDiv.classList.add('col-md-5', 'col-xl-3');
+        data.forEach((item, index) => {
+          const cardDiv = document.createElement('div');
+          cardDiv.classList.add('col-md-5', 'col-xl-3');
 
-      const colorClass = colors[index % colors.length]; // Choose color alternatively
+          const colorClass = colors[index % colors.length]; // Choose color alternatively
 
-      const cardContent = `
-        <div class="card1 ${colorClass} order-card m-round">
-          <div class="card-block">
-            <h6 class="m-b-0">${item.section}<span class="f-right" style='font-size:medium'>${item.year}</span></h6>
-            <br>
-            <h6 class="m-b-0">Subject: <span style='font-size:small'>${item.subject}</span></h6>
-            <br>
-            <h6 class="m-b-0">Total count<span class="f-right">${item.totalcount}</span></h6>
-            <h6 class="m-b-0">Present <span class="f-right">${item.presentcount}</span></h6>
-            <h6 class="m-b-0">Bunk <span class="f-right">${item.bunk}</span></h6>
-          </div>
-        </div>
-      `;
-      cardDiv.innerHTML = cardContent;
+          const cardContent = `
+            <div class="card1 ${colorClass} order-card m-round" data-year="${item.year}" data-section="${item.section}" data-subject="${item.subject}">
+              <div class="card-block">
+                <h6 class="m-b-0">${item.section}<span class="f-right" style='font-size:medium'>${item.year}</span></h6>
+                <br>
+                <h6 class="m-b-0">Subject: <span style='font-size:small'>${item.subject}</span></h6>
+                <br>
+                <h6 class="m-b-0">Total count<span class="f-right">${item.totalcount}</span></h6>
+                <h6 class="m-b-0">Present <span class="f-right">${item.presentcount}</span></h6>
+                <h6 class="m-b-0">Bunk <span class="f-right">${item.bunk}</span></h6>
+              </div>
+            </div>
+          `;
+          cardDiv.innerHTML = cardContent;
       cardContainer.appendChild(cardDiv);
+
+      // Add click event listener
+      cardDiv.querySelector('.card1').addEventListener('click', () => {
+        const year = cardDiv.querySelector('.card1').getAttribute('data-year');
+        const section = cardDiv.querySelector('.card1').getAttribute('data-section');
+        const date = new Date().toISOString().split('T')[0]; 
+
+        console.log(`Fetching bunked students for year: ${year}, section: ${section}, date: ${date}`); // Debugging log
+        window.location.href = `/bunklist?year=${year}&section=${section}&date=${date}`;
+      });
     });
 
   } catch (error) {
@@ -472,12 +483,10 @@
   }
 }
 
-// Execute the function on page load
-document.addEventListener('DOMContentLoaded', () => {
-  retrieveAttendanceData();
-});
-
-</script>
+    document.addEventListener('DOMContentLoaded', () => {
+      retrieveAttendanceData();
+    });
+  </script>
  </body>
  
  </html>     

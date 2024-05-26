@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { restrictToLoggedinUserOnly,restrictTo } from '../middleware/auth.js';
 const router = Router();
 
 
@@ -36,17 +37,25 @@ router.get("/take_attendance",(req, res) => {
   res.render("take_attendance.ejs");
 });
 
-router.get('/TimeTable', (req, res) => {
-  
-  res.render('TimeTable' );
+router.get('/TimeTable',restrictToLoggedinUserOnly,(req, res) => {
+  const name=req.user.name;
+  const userRole=req.user.role;
+  res.render('TimeTable' ,{name,userRole});
 });
 
-router.get('/users-profile', (req, res) => {
+router.get('/users-profile',(req, res) => {
   
   res.render('users-profile.ejs');
 });
+router.get('/bunklist',restrictToLoggedinUserOnly,restrictTo(['Personal Assistant','HOD']),(req, res) => {
+  
+  res.render('bunklist.ejs');
+});
+ router.get('/errorpage',(req,res)=>{
+   res.render('errorpage.ejs');
+ });
 
-router.get("/Attendancereport", (req, res) => {
+router.get("/Attendancereport",(req, res) => {
   res.render("Attendance_report.ejs");
 });
 router.get("/contact-LandingPage", (req, res) => {

@@ -41,7 +41,7 @@ export function generateToken(user) {
     email: user.email,
     name: user.name ,
     role: user.role,
-  }, secret, { expiresIn: '2h' });
+  }, secret, { expiresIn: '6h' });
 }
 
 export function verifyToken(token) {
