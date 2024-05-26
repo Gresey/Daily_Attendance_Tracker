@@ -20,13 +20,13 @@ export function restrictToLoggedinUserOnly(req, res, next) {
     return res.redirect('/login');
   }
 
-  const decoded = verifyToken(token);
-  if (!decoded) {
+  try {
+    const decoded = verifyToken(token);
+    req.user = decoded;
+    next();
+  } catch (error) {
     return res.redirect('/login');
   }
-
-  req.user = decoded;
-  next();
 }
 
   export function restrictTo(roles) {
