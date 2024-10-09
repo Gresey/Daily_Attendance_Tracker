@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { secure: false }
 }));
 
@@ -66,20 +66,31 @@ async function createTables() {
 }
 
 createTables();
-
+app.use('/',pageRenderRoutes);
 app.use('/auth', authRoutes);
 
 // Middleware to set user role and name in locals for views
 app.use(restrictToLoggedinUserOnly,(req, res, next) => {
- 
+  
+  if (req.session.userId) {
+    db.query('SELECT username, role FROM users WHERE id = ?', [req.session.userId], (err, results) => {
+      if (err || results.length === 0) {
+        req.session.destroy();
+        return res.render('/dashboard');
+      }
+      const user = results[0];
+      req.user = { name: user.username, role: user.role };
       res.locals.userRole = user.role;
       res.locals.name = user.username;
       next();
-   
+    });
+  } else {
+    next();
+  }
 });
 
-app.use('/dashboard',restrictToLoggedinUserOnly, dashboard);
-app.use('/', restrictToLoggedinUserOnly,pageRenderRoutes);
+//app.use('/',pageRenderRoutes);
+app.use('/dashboard', restrictToLoggedinUserOnly, dashboard);
 app.use('/submitForm', restrictToLoggedinUserOnly, StudentData);
 app.use('/searchEntries', restrictToLoggedinUserOnly, searchEntries);
 app.use('/attendance', restrictToLoggedinUserOnly, AttendanceRoutes);
